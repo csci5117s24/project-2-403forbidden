@@ -77,6 +77,36 @@ Web View
 
 User can add a new firearm in this page. 
 
+### 6. Shooting Range Visit Page
+Phone view
+![](doc/mockup/shootingrangevisit.png)
+
+Web View
+![](doc/mockup/webshootingrangevisit.png)
+
+Upon selecting the "Range Visits" feature from the main menu, the user will be navigated to the "Range Visits" overview. These cards detail key statistics from each session, including the type of firearm utilized, duration of the visit, total shots discharged, the average score achieved, and the financial expenditure.
+
+Tapping on any card expands to a detailed summary of that particular visit, providing an in-depth review of performance and activity. For user convenience, an 'Edit' option is prominently positioned at the top of the screen, allowing for modifications or removal of any entry related to range visits.
+
+At the footer of the screen lies a conspicuous "+" button; interacting with this icon facilitates the user in seamlessly adding new range visits to their log.
+
+### 6. Range Visit Detail Page
+Phone view
+![](doc/mockup/rangevisitdetail.png)
+
+Web View
+![](doc/mockup/webrangevisitdetail.png)
+
+On the Range Visit Details Page, users can view specific details of their shooting session by clicking the Edit button at the top to make adjustments. The main content area displays the name of the range, a map indicating the location, date of visit, series number of firearms used, and more. The Activity Log section below records basic information about the visit, such as bullets fired, time spent, achievements scored.
+
+### 5. Add Range Visit Page
+Phone View
+
+
+Web View
+
+
+User can add a new firearm in this page. 
 
 
 
