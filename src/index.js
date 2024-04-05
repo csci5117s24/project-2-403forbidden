@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { Home_Page } from './routes/Home'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,6 +13,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    children: [
+      Home_Page
+    ]
   },
   
 ]);

@@ -28,13 +28,13 @@ function App() {
     <div className="App color4-back">
       <div className="top-bar color6-back">
         <div className='home-head color1-back'>
-        {userInfo && <Link to="/todos" className='color4 nodecoration'>Welcome back, {userInfo.userDetails}</Link>}
+        {userInfo && <Link to="/home" className='color4 nodecoration'>Welcome back, {userInfo.userDetails}</Link>}
         {!userInfo && <text className='color4 nodecoration'>RiffleRig</text>}
         </div>
         <div className='bottom-buttons'>
           <div className='bottom-button-container'>
           {userInfo && <Link to="/todos" className='bottom-link'>Firearm</Link>}
-          {!userInfo && <a href="/.auth/login/github?post_login_redirect_uri=/" className='bottom-link'>Login</a>}
+          {!userInfo && <a href="/.auth/login/github?post_login_redirect_uri=/home" className='bottom-link'>Login</a>}
           </div>
           <div className='bottom-button-container'>
           {userInfo && <Link to="/done" className='bottom-link'>Range Visit</Link>}
