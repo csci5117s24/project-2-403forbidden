@@ -1,0 +1,135 @@
+.top-bar {
+    display: flex;
+    justify-content: space-between; /* Aligns one child to the start, the other to the end */
+    align-items: center; /* Centers items vertically */
+}
+
+.home-head, .bottom-buttons {
+    padding: 10px; /* Adjust as needed for spacing */
+}
+
+.nodecoration{
+    text-decoration: none; /* No underline */
+}
+
+.bottom-buttons {
+display: flex;
+justify-content: center; /* Centers the buttons horizontally */
+gap: 10px;
+}
+
+.bottom-button-container {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    justify-content: center; /* Center children horizontally */
+    align-items: flex-start; /* Align children to the start of the cross axis */
+    gap: 20px; /* Optional: Adds space between the two sections */
+  }
+
+  .bottom-link{
+    color: #4CAF50; /* Green text */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold text */
+    background-color: #C8E6C9; /* Light green background */
+    padding: 10px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+  }
+
+  .color1 {
+    background-color: #44aaaa;
+  }
+  
+  .color1-back {
+    background-color: #44aaaa;
+  }
+  
+  .color2 {
+    color: #f4f1bb;
+  }
+  
+  .color2-back {
+    background-color: #f4f1bb;
+  }
+  
+  .color3 {
+    background-color: #9bc1bc;
+  }
+  .color4{
+    color: #f2daaa;
+  }
+  
+  .color4-back{
+    background-color: #f2daaa;
+  }
+  
+  .color5{
+    color: #7c3e2b;
+  }
+  
+  .color5-back{
+    background-color: #7c3e2b;
+  }
+  
+  .color6{
+    color: #f7d486;
+  }
+  
+  .color6-back{
+    background-color: #f7d486;
+  }
+  
+  .color7{
+    color: #ce796b;
+  }
+  
+  .color7-back{
+    background-color: #ce796b;
+  }
+  
+  .color8{
+    color: #ecc8af;
+  }
+  
+  .color8-back{
+    background-color: #ecc8af;
+  }
+  
+  .color9{
+    color: #588157;
+  }
+  
+  .color9-back{
+    background-color: #588157;
+  }
+  
+  .color10{
+    color: #dad7cd;
+  }
+  
+  .color10-back{
+    background-color: #dad7cd;
+  }
+  
+  .color11{
+    color: #bee9e8;
+  }
+  
+  .color11-back{
+    background-color: #bee9e8;
+  }
+  
+  .color12{
+    color: #e5989b;
+  }
+  
+  .color12-back{
+    background-color: #e5989b;
+  }
+  
+  .color13{
+    color: #ffd6e0;
+  }
+  
+  .color13-back{
+    background-color: #ffd6e0;
+  }
