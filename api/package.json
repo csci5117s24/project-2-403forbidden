@@ -4,13 +4,13 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Ruichen He",
     "license": "ISC",
     "dependencies": {
-      "@azure/functions": "^4.3.0",
-      "mongodb": "^6.5.0"
+        "@azure/functions": "^4.3.0",
+        "axios": "^1.6.8",
+        "mongodb": "^6.5.0"
     }
-  }
-  
+}
