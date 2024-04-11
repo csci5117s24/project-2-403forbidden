@@ -4,104 +4,44 @@ const mongoClient = require("mongodb").MongoClient;
 const axios = require('axios');
 const FormData = require('form-data');
 
-app.http('validateCloudFlare', {
-    methods: ['POST'],
-    authLevel: 'anonymous',
-    route: 'validate',
-    handler: async (request, context) => {
-      try {
-        // Make a GET request to the CloudFlare API to verify the token
-        const response = await axios.get('https://api.cloudflare.com/client/v4/user/tokens/verify', {
-          headers: {
-            'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace with secure token access
-            'Content-Type': 'application/json'
-          }
-        });
-  
-        console.log(response.data);
-        // Process the response from CloudFlare API
-        if (response.data && response.data.success) {
-          // Token is valid, proceed with your logic
-          return {
-            success: true,
-            message: 'CloudFlare token validated successfully.'
-          };
-        } else {
-          // Token is invalid or verification failed
-          return {
-            success: false,
-            message: 'Failed to validate CloudFlare token.'
-          };
-        }
-      } catch (error) {
-        // Handle potential errors
-        console.error('Error validating CloudFlare token:', error);
-        return {
-          success: false,
-          message: 'An error occurred during CloudFlare token validation.'
-        };
-      }
-    },
-});
-  
-app.http('uploadImageToCloudFlare', {
-    methods: ['POST'],
-    authLevel: 'anonymous',
-    route: 'upload',
-    handler: async (request, context) => {
-    const body = await request.json();
-    const imageUrl = body.imageUrl;
-    console.log(imageUrl);
-    console.log("Here");
-    if (!imageUrl) {
-        console.log("No imageURL");
-        return {
-        success: false,
-        message: 'No image URL provided.'
-        };
-    }
-
-
-    console.log("Have imageURL");
+app.http('obtainCloudFlareUploadURL', {
+  methods: ['POST'],
+  authLevel: 'anonymous',
+  route: 'getuploadurl',
+  handler: async (request, context) => {
+    const url = `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v2/direct_upload`;
     const formData = new FormData();
-    formData.append('url', imageUrl);
-    formData.append('metadata', JSON.stringify({ key: 'value' })); // Adjust the metadata as necessary
+    formData.append('metadata', JSON.stringify({ key: 'value' }));
     formData.append('requireSignedURLs', 'false');
 
     try {
-        const response = await axios.post(`https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1`, formData, {
-        headers: {
-            ...formData.getHeaders(),
-            'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
-        },
-        });
+      const response = await axios.post(url, formData, {
+      headers: {
+          ...formData.getHeaders(),
+          'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
+      },
+      });
 
-        // Process the response from CloudFlare
-        if (response.data && response.data.success) {
-        // Image upload was successful
-        return {
-            jsonBody: {
-                success: true,
-                message: 'Image uploaded successfully to CloudFlare.',
-                imageURL: response.data.result.variants[0]
-            }
-        };
-        } else {
-        // Upload failed
-        return {
-            success: false,
-            message: 'Failed to upload image to CloudFlare.'
-        };
-        }
+      if (response.statusText !== "OK") {
+        console.log(response);
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      console.log(response.data);
+      const uploadURL = await response.data.result.uploadURL; // Assuming the server responds with JSON
+      console.log('Upload successful:', uploadURL);
+      // Respond to the client indicating success
+      return {
+        jsonBody: {uploadURL: uploadURL}
+      };
     } catch (error) {
-        // Handle potential errors
-        console.error('Error uploading image to CloudFlare:', error);
-        return {
+      console.error('Upload failed:', error);
+      // Respond to the client indicating failure
+      return {
         success: false,
-        message: 'An error occurred during image upload to CloudFlare.'
-        };
+        message: `An error occurred during the image upload: ${error.message}`
+      };
     }
-    },
+  },
 });
 
 app.http('newFirearm', {

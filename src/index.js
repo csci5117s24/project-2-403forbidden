@@ -9,12 +9,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import UserInfoProvider from './UserInfoProvider'
+import { Firearm_Page } from './routes/Firearm_page';
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
     children: [
-      Home_Page
+      Home_Page,
+      Firearm_Page
     ]
   },
   
