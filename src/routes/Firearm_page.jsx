@@ -61,7 +61,7 @@ function App() {
         }
   
         const data = await response.json();
-        console.log('Upload successful:', data);
+        console.log('Upload successful, image public url:', data.result.variants[0]); // We will store data.result.variants[0] into MongoDB since this is the public url to access the stored image
   
       } catch (error) {
         console.error('Upload failed:', error);
