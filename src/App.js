@@ -29,7 +29,7 @@ function App() {
       <div className="top-bar color6-back">
         <div className='home-head color1-back'>
         {userInfo && <Link to="/home" className='color4 nodecoration'>Welcome back, {userInfo.userDetails}</Link>}
-        {!userInfo && <text className='color4 nodecoration'>RiffleRig</text>}
+        {!userInfo && <p className='color4 nodecoration'>RiffleRig</p>}
         </div>
         <div className='bottom-buttons'>
           <div className='bottom-button-container'>

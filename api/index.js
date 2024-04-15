@@ -19,16 +19,11 @@ app.http('obtainCloudFlareUploadURL', {
         'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
     },
     });
-    console.log(response.status);
-    const statusnum = await response.status;
-    return {
-      jsonBody: {status: statusnum}
-    };
-    // if (response.statusText !== "OK") {
-    //   console.log(response);
-    //   throw new Error(`HTTP error! Status: ${response.status}`);
-    // }
-    // console.log(response.data);
+
+    if (response.statusText !== "OK") {
+      console.log(response);
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
     const uploadURL = await response.data.result.uploadURL; // Assuming the server responds with JSON
     console.log('Upload successful:', uploadURL);
     // Respond to the client indicating success
