@@ -13,34 +13,24 @@ app.http('obtainCloudFlareUploadURL', {
     const formData = new FormData();
     formData.append('metadata', JSON.stringify({ key: 'value' }));
     formData.append('requireSignedURLs', 'false');
+    const response = await axios.post(url, formData, {
+    headers: {
+        ...formData.getHeaders(),
+        'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
+    },
+    });
 
-    try {
-      const response = await axios.post(url, formData, {
-      headers: {
-          ...formData.getHeaders(),
-          'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
-      },
-      });
-
-      if (response.statusText !== "OK") {
-        console.log(response);
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      console.log(response.data);
-      const uploadURL = await response.data.result.uploadURL; // Assuming the server responds with JSON
-      console.log('Upload successful:', uploadURL);
-      // Respond to the client indicating success
-      return {
-        jsonBody: {uploadURL: uploadURL}
-      };
-    } catch (error) {
-      console.error('Upload failed:', error);
-      // Respond to the client indicating failure
-      return {
-        success: false,
-        message: `An error occurred during the image upload: ${error.message}`
-      };
+    if (response.statusText !== "OK") {
+      console.log(response);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    console.log(response.data);
+    const uploadURL = await response.data.result.uploadURL; // Assuming the server responds with JSON
+    console.log('Upload successful:', uploadURL);
+    // Respond to the client indicating success
+    return {
+      jsonBody: {uploadURL: uploadURL}
+    };
   },
 });
 
