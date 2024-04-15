@@ -1,5 +1,4 @@
 const { app } = require('@azure/functions');
-const { type } = require('@testing-library/user-event/dist/type');
 const mongoClient = require("mongodb").MongoClient;
 const axios = require('axios');
 const FormData = require('form-data');
