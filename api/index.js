@@ -19,7 +19,8 @@ app.http('obtainCloudFlareUploadURL', {
         'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`, // Replace <API_TOKEN> with your actual Cloudflare API token
     },
     });
-
+    console.log(response);
+    console.log(response.statusText);
     if (response.statusText !== "OK") {
       console.log(response);
       throw new Error(`HTTP error! Status: ${response.status}`);
