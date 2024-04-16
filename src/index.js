@@ -10,13 +10,16 @@ import {
 } from "react-router-dom";
 import UserInfoProvider from './UserInfoProvider'
 import { Firearm_Page } from './routes/Firearm_page';
+import { Firearm_Inventory_Page } from './routes/FirearmInventory.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
     children: [
       Home_Page,
-      Firearm_Page
+      Firearm_Page,
+      Firearm_Inventory_Page,
+
     ]
   },
   
