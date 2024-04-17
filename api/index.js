@@ -2,6 +2,7 @@ const { app } = require('@azure/functions');
 const mongoClient = require("mongodb").MongoClient;
 const axios = require('axios');
 const FormData = require('form-data');
+const { ObjectId } = require('mongodb');
 
 app.http('obtainCloudFlareUploadURL', {
   methods: ['POST'],
@@ -252,6 +253,30 @@ app.http('newRangeVisit', {
             return {
                 jsonBody: {data: rangevisits.reverse()}
             }
+        }
+    },
+  });
+
+  app.http('getRangeVisitByid', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'rangevisit/{id}',
+    handler: async (request, context) => {
+        const id = request.params.id;
+        if (ObjectId.isValid(id)) {
+            const client = await mongoClient.connect(process.env.AZURE_MONGO_DB)
+            const rangevisit = await client.db("test").collection("rangevisit").findOne({_id: new ObjectId(id)})
+            client.close();
+
+            if (rangevisit) {
+                return {
+                    jsonBody: {rangevisit: rangevisit}
+                }
+            }
+        }
+        return {
+            status:404,
+            jsonBody: {error: "no rangevisit found by that Id"}
         }
     },
   });
