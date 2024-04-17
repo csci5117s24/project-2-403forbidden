@@ -37,7 +37,7 @@ function App() {
           {!userInfo && <a href="/.auth/login/github?post_login_redirect_uri=/home" className='bottom-link'>Login</a>}
           </div>
           <div className='bottom-button-container'>
-          {userInfo && <Link to="/done" className='bottom-link'>Range Visit</Link>}
+          {userInfo && <Link to="/rangevisit/add" className='bottom-link'>Range Visit</Link>}
           </div>
           <div className='bottom-button-container'>
           {userInfo && <Link to="/done" className='bottom-link'>Maintenance</Link>}

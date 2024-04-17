@@ -27,6 +27,13 @@ function App() {
       if (response.uploadURL) {
         setUploadUrl(response.uploadURL);
       }
+      const temp = await fetch("/api/rangevisit/new", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+      })
+      
     }
 
     useEffect(() => {

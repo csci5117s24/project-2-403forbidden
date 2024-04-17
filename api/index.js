@@ -172,5 +172,88 @@ app.http('deleteFirearm', {
   }
 });
 
+app.http('newRangeVisit', {
+    methods: ['POST'],
+    authLevel: 'anonymous',
+    route: 'rangevisit/create',
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB)
+        const body = await request.json();
+  
+        const auth_header = request.headers.get('X-MS-CLIENT-PRINCIPAL');
+        let userid = ""; // Initialize id with an empty string by default
+  
+        if (auth_header) {
+            try {
+                let token = Buffer.from(auth_header, "base64");
+                token = JSON.parse(token.toString());
+                if (token && token.userId) {
+                  userid = token.userId;
+                }
+            } catch (error) {
+                console.error("Error parsing the authentication token:", error);
+            }
+        }
+        console.log(body);
+        console.log("User ID:", userid);
+  
+        let visitDate = body.date ?? Date().toISOString()
+        let rangeLat = body.lat ?? ""
+        let rangeLng = body.lng ?? ""
+        let visitDetail = body.detail ?? []
+        let duration = body.duration ?? 60;
+        
+        const payload = {
+          userid: userid,
+          visitDate: visitDate,
+          rangeLat: rangeLat,
+          rangeLng: rangeLng,
+          duration: duration,
+          visitDetail: visitDetail,
+          
+        }
+  
+        const result = await client.db("test").collection("rangevisit").insertOne(payload)
+  
+        client.close();
+        return{
+            status: 201, /* Defaults to 200 */
+            jsonBody: {
+                _id: result.insertedId, 
+                userid: userid,
+                visitDate: visitDate,
+                rangeLat: rangeLat,
+                rangeLng: rangeLng,
+                duration: duration,
+                visitDetail: visitDetail,
+            }
+        };
+    },
+  });
+  
+  app.http('getRangeVisits', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'rangevisits/all',
+    handler: async (request, context) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB)
+        const rangevisits = await client.db("test").collection("rangevisit").find({}).toArray()
+        client.close();
+        const auth_header = request.headers.get('X-MS-CLIENT-PRINCIPAL')
+        let token = null
+        if (auth_header) {
+            token = Buffer.from(auth_header, "base64");
+            token = JSON.parse(token.toString());
+            console.log(token.userId)
+            return {
+                jsonBody: {data: rangevisits.filter(rangevisit => rangevisit.userid === token.userId).reverse()}
+            }
+        } else {
+            return {
+                jsonBody: {data: rangevisits.reverse()}
+            }
+        }
+    },
+  });
 
 

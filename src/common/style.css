@@ -155,3 +155,111 @@ gap: 10px;
   .action-button:hover {
     background-color: #e0e0e0; /* Slightly darker background on hover */
   }
+
+
+  .duration-container {
+    display: flex;           /* Aligns children (input and label) in a row */
+    align-items: center;     /* Center-align items vertically */
+    width: 100%;
+  }
+  
+  .duration-input {
+    margin-right: 5px;       /* Adds a small space between the input and the label */
+    padding: 8px;
+    font-size: 16px;         /* Ensures the input text is easily readable */
+    width: 100%;
+  }
+  
+  .duration-label {
+    font-size: 16px;         /* Match font size with input */
+    width: 100%;
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;  /* Stack children vertically */
+    width: 100%;             /* Full width of the parent */
+  }
+  
+  .left-container {
+    position: fixed;
+    top: 15vh;
+    left: 30px;
+    width: 33.3%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box; /* Includes padding in the width and height calculations */
+  
+    border: 2px solid #ccc; /* Example border color and width */
+    border-radius: 15px;    /* Adjust radius for desired roundness */
+    background-color: #fff; /* Optional: sets a background color for the container */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+    overflow: visible; /* Changes overflow to visible */
+  }
+  
+  .inputs-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;      /* Reduced bottom margin */
+  }
+  
+  .duration-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .map-container {
+    margin-top: 20px;         /* Ensures a small gap from the inputs-container, adjust as needed */
+    width: 100%;              /* Ensure it takes full width of the left-container */
+    height: auto;             /* Adjust height based on content or set a fixed height */
+    overflow: hidden;
+  }
+  
+  .right-container {
+    margin-left: 33.3%;   /* Adjust if necessary to account for any changes in the left container’s actual width */
+    width: 66.6%;         /* Adjust if the left container’s width change affects layout */
+    overflow-y: auto;
+    padding-left: 20px;
+  }
+
+  .add-visit-button {
+    display: block; /* Ensure it takes the full width available if necessary */
+    width: 100%; /* Adjust width as per design requirement */
+    padding: 10px 20px; /* Padding for better touch area */
+    margin-top: 20px; /* Space above the button */
+    background-color: #007BFF; /* Example: a nice blue */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .add-visit-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Creates a responsive grid */
+    grid-gap: 20px; /* Spacing between grid items */
+    padding: 20px; /* Padding around the entire grid */
+  }
+  
+  .grid-item {
+    background-color: #fff; /* Background color for each item */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
+    overflow: hidden; /* Ensures nothing spills out of the rounded corners */
+  }
+  
+  .grid-item img {
+    width: 100%; /* Ensure the image covers the width of the grid item */
+    height: 150px; /* Fixed height for all images */
+    object-fit: cover; /* Ensures the image covers the designated area without distortion */
+  }
+  
+  .grid-item p {
+    padding: 10px; /* Padding inside the text area */
+    margin: 0; /* Remove default margin from paragraph */
+    text-align: center; /* Center-align text */
+  }

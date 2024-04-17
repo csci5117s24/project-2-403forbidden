@@ -1,11 +1,11 @@
 import '../common/style.css';
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 function App() {
     return (
         <div className="components-container">
-          <button className="action-button" onClick={() => console.log('Firearm clicked')}>Firearm</button>
-          <button className="action-button" onClick={() => console.log('Range Visit clicked')}>Range Visit</button>
+          <Link to="/firearm_inventory" className='bottom-link action-button'>Firearm</Link>
+          <Link to="/rangevisit/add" className='bottom-link action-button'>Range Visit</Link>
           <button className="action-button" onClick={() => console.log('Maintenance clicked')}>Maintenance</button>
         </div>
       );
