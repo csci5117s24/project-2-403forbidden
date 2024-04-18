@@ -55,6 +55,9 @@ function App() {
           detail: updatedVisitDetails
         };
         console.log(rangevisit._id);
+
+        
+
         await fetch("/api/rangevisit/update/"+rangevisit._id, {
           method: "PUT",
           headers: {
