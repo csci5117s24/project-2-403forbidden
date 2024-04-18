@@ -4,8 +4,9 @@ import '../common/style.css';
 import 'react-datepicker/dist/react-datepicker.css'
 import UserInfoContext from '../UserInfoContext';
 import { useLoaderData } from 'react-router-dom';
-import moment from 'moment';
 import MapImage from '../common/MapImage';
+import RangeVisitItem from '../common/RangeVisitItem';
+import { Link } from 'react-router-dom';
 async function loader({ request }) {
   const allRangeVisits = await fetch("/api/rangevisits/all", {
       signal: request.signal,
@@ -129,13 +130,7 @@ function App() {
     {/* Placeholder or additional content goes here */}
     <div className="grid-container">
     {allVisits.map((visit) => (
-      <div className="grid-item">
-        <div className="map-container">
-          <MapImage lat={visit.rangeLat} lng={visit.rangeLng}/>
-        </div>
-        <p>{moment(visit.visitDate).format('YYYY-MM-DD')}</p>
-        <p>{visit.duration} min</p>
-      </div>
+      <RangeVisitItem visit={visit} />
     ))}
     </div>
   </div>
