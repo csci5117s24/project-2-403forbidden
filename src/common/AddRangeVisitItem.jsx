@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './style.css'
 
-export default function AddItemForm({ handleSubmit }) {
+export default function AddItemForm({ handleSubmit, firearmlist}) {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [firearm, setFirearm] = useState('');
     const [value, setValue] = useState('');
@@ -29,9 +29,11 @@ export default function AddItemForm({ handleSubmit }) {
                 <div className="form-container">
                     <select required value={firearm} onChange={e => setFirearm(e.target.value)}>
                         <option value="">Select Firearm</option>
-                        <option value="rifle">Rifle</option>
-                        <option value="pistol">Pistol</option>
-                        <option value="shotgun">Shotgun</option>
+                        {firearmlist.map((firearm) => (
+                        <option key={firearm._id} value={firearm._id} className='color7'>
+                            {firearm.firearmName}
+                        </option>
+                        ))}
                     </select>
                     <input type="text" placeholder="Enter value" value={value} onChange={e => setValue(e.target.value)} required />
                     <div className="form-actions">

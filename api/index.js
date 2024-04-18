@@ -281,4 +281,45 @@ app.http('newRangeVisit', {
     },
   });
 
+  app.http('updateRangeVisitByid', {
+    methods: ['PUT'],
+    authLevel: 'user', // Assuming some level of authentication is required
+    route: 'rangevisit/update/{id}', // Using a route parameter for the visit ID
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        const body = await request.json();
+        const id = request.params.id;
+        console.log(id);
+        if (ObjectId.isValid(id)) {
+            const updateData = {};
+            if (body.date) updateData.visitDate = body.date;
+            if (body.lat) updateData.rangeLat = body.lat;
+            if (body.lng) updateData.rangeLng = body.lng;
+            if (body.detail) updateData.visitDetail = body.detail;
+            if (body.duration) updateData.duration = body.duration;
+            console.log(updateData);
+            const result = await client.db("test").collection("rangevisit").updateOne(
+                { _id: new ObjectId(id) },
+                { $set: updateData }
+            );
+
+            client.close();
+            if (result.modifiedCount === 0) {
+              return {
+                  status: 404,
+                  jsonBody: { error: "No visit found with the provided ID" }
+                };
+            }
+            return {
+                status: 200,
+                jsonBody: { message: "Visit updated successfully", updateData }
+            };
+        }
+        return {
+            status:404,
+            jsonBody: {error: "no rangevisit found by that Id"}
+        }
+    },
+});
+
 
