@@ -56,6 +56,8 @@ app.http('newFirearm', {
       const firearmPrice = body.firearmPrice ?? "" // $1000
       const firearmPurchasedate = body.firearmPurchasedate ?? "";
       const firearmImage = body.firearmImage ?? "";
+      const firearmRangeVisitHistory = [];
+      const firearmMaintenanceHistory = [];
       
       const payload = {
           userid: userid,
@@ -66,7 +68,9 @@ app.http('newFirearm', {
           firearmCaliber: firearmCaliber,
           firearmPrice: firearmPrice,
           firearmPurchasedate: firearmPurchasedate,
-          firearmImage: firearmImage
+          firearmImage: firearmImage,
+          firearmRangeVisitHistory: firearmRangeVisitHistory,
+          firearmMaintenanceHistory: firearmMaintenanceHistory
       }
       console.log(payload)
 
@@ -85,7 +89,9 @@ app.http('newFirearm', {
               firearmModel: firearmModel,
               firearmCaliber: firearmCaliber,
               firearmPrice: firearmPrice,
-              firearmImage: firearmImage
+              firearmImage: firearmImage,
+              firearmRangeVisitHistory: firearmRangeVisitHistory,
+              firearmMaintenanceHistory: firearmMaintenanceHistory
           }
       };
   },
@@ -120,36 +126,45 @@ app.http('getFirearm', {
 app.http('updateFirearm', {
   methods: ['PUT'],
   authLevel: 'anonymous',
-  route: 'firearm',
+  route: 'firearm/{id}',
   handler: async (request) => {
       const client = await mongoClient.connect(process.env.AZURE_MONGO_DB)
       const body = await request.json();
-      const userid = body.userid;
-         
-      const firearmName = body.firearmName ?? "unknown name"
-      const firearmType = body.firearmType ?? "unknown type"//pistol, revolver, shotgun, etc.
-      const firearmMake = body.firearmMake ?? "unknown make"//Glock, CZ, etc.
-      const firearmModel = body.firearmModel ?? "unknown model"//Glock19, Shadow2, etc.
-      const firearmCaliber = body.firearmCaliber ?? "unknown caliber"//9mm, .45acp, etc. 
-      const firearmPrice = body.firearmPrice ?? "" // $1000
-      const firearmPurchasedate = body.firearmPurchasedate ?? "";
-      const firearmImage = body.firearmImage ?? "";
-      const _id = body._id; 
-      
-      const payload = {
-          userid: userid,
-          firearmName: firearmName,
-          firearmType: firearmType,
-          firearmMake: firearmMake,
-          firearmModel: firearmModel,
-          firearmCaliber: firearmCaliber,
-          firearmPrice: firearmPrice,
-          firearmPurchasedate: firearmPurchasedate,
-          firearmImage: firearmImage,
-      }
-      console.log(payload )
+      const id = request.params.id;
+      if (ObjectId.isValid(id)) {
+        const updateData = {};
+        if (body.firearmName) updateData.firearmName = body.firearmName;
+        if (body.firearmType) updateData.firearmType = body.firearmType;
+        if (body.firearmMake) updateData.firearmMake = body.firearmMake;
+        if (body.firearmModel) updateData.firearmModel = body.firearmModel;
+        if (body.firearmCaliber) updateData.firearmCaliber = body.firearmCaliber;
+        if (body.firearmPrice) updateData.firearmPrice = body.firearmPrice;
+        if (body.firearmPurchasedate) updateData.firearmPurchasedate = body.firearmPurchasedate;
+        if (body.firearmImage) updateData.firearmImage = body.firearmImage;
+        if (body.firearmRangeVisitHistory) updateData.firearmRangeVisitHistory = body.firearmRangeVisitHistory;
+        if (body.firearmMaintenanceHistory) updateData.firearmMaintenanceHistory = body.firearmMaintenanceHistory;
+        console.log(updateData);
+        const result = await client.db("test").collection("firearm").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updateData }
+        );
 
-      const result = await client.db("test").collection("firearm").updateOne({_id: _id}, {$set: payload})
+        client.close();
+        if (result.modifiedCount === 0) {
+          return {
+              status: 404,
+              jsonBody: { error: "No firearm found with the provided ID" }
+            };
+        }
+        return {
+            status: 200,
+            jsonBody: { message: "Visit updated successfully", updateData }
+        };
+    }
+    return {
+        status:404,
+        jsonBody: {error: "no rangevisit found by that Id"}
+    }
   }
 });
 

@@ -37,7 +37,7 @@ const handleDelete = async (firearmId) => {
 };
 const handleUpdate = async (firearm) => {
     console.log(firearm);
-    const response = await fetch('/api/firearm/', {
+    const response = await fetch('/api/firearm/'+firearm._id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
