@@ -1,4 +1,4 @@
-function MapImage({lat, lng}) {
+export default function MapImage({lat, lng}) {
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;  // Access the API key from environment variables
     const size = "600x300";
     const zoom = 13;
