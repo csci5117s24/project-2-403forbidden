@@ -343,12 +343,11 @@ app.http('deleteRangeVisit', {
     route: 'rangevisit/delete/{id}',
     handler: async (request, context) => {
         const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
-        const body = await request.json();
         const id = request.params.id;
         console.log(id);
         if (ObjectId.isValid(id)) {
-            const categoryResult = await client.db("test").collection("rangevisit").deleteOne({_id: id});
-            if (categoryResult.deletedCount === 1){
+            const result = await client.db("test").collection("rangevisit").deleteOne({_id: id});
+            if (result.deletedCount === 1){
                 // Need to remove this range visit from firearm as well
                 return {
                     status: 200,

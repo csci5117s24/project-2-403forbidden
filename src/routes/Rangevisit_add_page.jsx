@@ -76,6 +76,13 @@ function App() {
     async function handleDelete(id){
       console.log("Delete");
       console.log(id);
+      await fetch("/api/rangevisit/delete/"+id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        }
+      })
+      setVisits(allVisits.filter(visit => visit._id !== id));
     };
 
     function success(pos) {
