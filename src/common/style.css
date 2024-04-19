@@ -393,3 +393,19 @@ gap: 10px;
   display: block; /* ensures the link fills the grid item for click area */
   /* other necessary styling */
 }
+
+.range-visit-detail-delete-button {
+  border: none;
+  background-color: #f00; /* Red background */
+  color: #fff; /* White text */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+}

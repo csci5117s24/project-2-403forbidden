@@ -5,6 +5,7 @@ import { useLoaderData } from 'react-router-dom';
 import MapImage from '../common/MapImage';
 import moment from 'moment';
 import AddItemForm from "../common/AddRangeVisitItem";
+import { v4 as uuidv4 } from 'uuid'; 
 async function loader({ request, params }) {
   const { id } = params;
   const rangevisitRequest = fetch("/api/rangevisit/"+id, {
@@ -46,8 +47,10 @@ function App() {
     async function handleSubmit(firearm, value){
         const newDetail = {
             firearm: firearm,
-            value: value
+            value: value,
+            id: uuidv4(),
         };
+        console.log(newDetail.id);
         const updatedVisitDetails = [...visitDetail, newDetail];
         setVisitDetail(updatedVisitDetails); 
         // Use the updated array for the PUT request
@@ -55,6 +58,7 @@ function App() {
           detail: updatedVisitDetails
         };
         console.log(rangevisit._id);
+        console.log(updatedVisitDetails);
 
         
 
@@ -67,6 +71,27 @@ function App() {
       })
 
     };
+
+    async function handleDelete(id) {
+      // Filter out the item with the given id
+      const updatedVisitDetails = visitDetail.filter(detail => detail.id !== id);
+      setVisitDetail(updatedVisitDetails); 
+      const updateRangeVisit = {
+        detail: updatedVisitDetails
+      };
+      console.log(rangevisit._id);
+      console.log(updatedVisitDetails);
+
+      
+
+      await fetch("/api/rangevisit/update/"+rangevisit._id, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updateRangeVisit)
+      })
+    }
 
     return (
       <div className="vertical-grid">
@@ -81,19 +106,25 @@ function App() {
         </div>
         <AddItemForm handleSubmit={handleSubmit} firearmlist = {firearmsdata}></AddItemForm>
         <div className="detail-list">
-          {visitDetail.map((detail, index) => {
-            // Find the matching firearm within the map function
-            const firearm = firearmsdata.find(f => f._id === detail.firearm);
+        {visitDetail.map((detail, index) => {
+          const firearm = firearmsdata.find(f => f._id === detail.firearm);
 
-            return (
-              <div key={index} className="detail-item">
-                {/* Conditionally render the firearm name if found, otherwise 'Unknown' */}
-                <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
-                <span className="value">{detail.value}</span>
-              </div>
-            );
-          })}
-        </div>
+          return (
+            <div key={detail.id} className="detail-item"> {/* Use UUID for key if available */}
+              <button
+                className="range-visit-detail-delete-button"
+                onClick={() => handleDelete(detail.id)} // Assuming handleDelete function exists
+                aria-label="Remove item"
+                style={{borderRadius: '50%', padding: '2px 5px', marginLeft: '10px'}}
+              >
+                ✕
+              </button>
+              <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
+              <span className="value">{detail.value}</span>
+            </div>
+          );
+        })}
+      </div>
 
       </div>
       
