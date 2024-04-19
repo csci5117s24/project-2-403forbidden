@@ -73,6 +73,11 @@ function App() {
       }
     };
 
+    async function handleDelete(id){
+      console.log("Delete");
+      console.log(id);
+    };
+
     function success(pos) {
       const crd = pos.coords;
       setLat(crd.latitude);
@@ -130,7 +135,7 @@ function App() {
     {/* Placeholder or additional content goes here */}
     <div className="grid-container">
     {allVisits.map((visit) => (
-      <RangeVisitItem visit={visit} />
+      <RangeVisitItem visit={visit} onDelete = {handleDelete}/>
     ))}
     </div>
   </div>

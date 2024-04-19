@@ -373,3 +373,23 @@ gap: 10px;
 .value {
   font-weight: normal;
 }
+
+.grid-item {
+  position: relative;
+  /* other styles for your grid item */
+}
+
+.delete-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: none;
+  background-color: transparent;
+  color: red; /* or your preferred color */
+  cursor: pointer;
+}
+
+.grid-item-link {
+  display: block; /* ensures the link fills the grid item for click area */
+  /* other necessary styling */
+}
