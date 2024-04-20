@@ -40,7 +40,7 @@ function App() {
           {userInfo && <Link to="/rangevisit/add" className='bottom-link'>Range Visit</Link>}
           </div>
           <div className='bottom-button-container'>
-          {userInfo && <Link to="/done" className='bottom-link'>Maintenance</Link>}
+          {userInfo && <Link to="/firearm_maintenance" className='bottom-link'>Maintenance</Link>} 
           </div>
           <div className='bottom-button-container'>
           {userInfo && <a href='/.auth/logout' className='bottom-link'>Log out</a>}

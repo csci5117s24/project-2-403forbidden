@@ -6,7 +6,7 @@ function App() {
         <div className="components-container">
           <Link to="/firearm_inventory" className='bottom-link action-button'>Firearm</Link>
           <Link to="/rangevisit/add" className='bottom-link action-button'>Range Visit</Link>
-          <button className="action-button" onClick={() => console.log('Maintenance clicked')}>Maintenance</button>
+          <Link to="/firearm_maintenance" className='bottom-link action-button'>Maintenance</Link>
         </div>
       );
 }

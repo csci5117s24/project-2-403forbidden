@@ -113,7 +113,7 @@ app.http('getFirearm', {
         userid = token.userId;
       }
       
-      const result = await client.db("test").collection("firearm").find({}).toArray()
+      const result = await client.db("test").collection("firearm").find({userid:userid}).toArray()
       client.close();
       return{
           status: 200, /* Defaults to 200 */
@@ -514,5 +514,33 @@ app.http('deleteLastMaintenance', {
         }
 
         return { status: 200, jsonBody: { message: "Maintenance record deleted successfully" } };
+    }
+});
+app.http('getFirearmsWithMaintenance', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'firearms/maintenance',
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+
+        // 认证部分，获取用户 ID
+        const authHeader = request.headers.get('X-MS-CLIENT-PRINCIPAL');
+        let userid = "";
+        if (authHeader) {
+            const token = Buffer.from(authHeader, "base64");
+            const decodedToken = JSON.parse(token.toString());
+            userid = decodedToken.userId;
+        }
+
+        const query = userid ? { userid: userid, firearmMaintenanceHistory: { $exists: true, $not: {$size: 0} } } : { firearmMaintenanceHistory: { $exists: true, $not: {$size: 0} } };
+        const firearms = await client.db("test").collection("firearm").find(query).toArray();
+
+        client.close();
+
+        // 返回查询到的带维修记录的枪支数据
+        return {
+            status: 200,
+            jsonBody: firearms
+        };
     }
 });
