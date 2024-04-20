@@ -450,3 +450,69 @@ app.http('getLatestMaintenance', {
         };
     }
 });
+
+app.http('editLastMaintenance', {
+    methods: ['PUT'],
+    authLevel: 'anonymous',
+    route: 'firearm/maintenance/editLast/{id}',
+    handler: async (request) => {
+        const { id } = request.params;
+        const body = await request.json();
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        
+        // First, find the firearm to get the current length of the maintenance array
+        const firearm = await client.db("test").collection("firearm").findOne({_id: new ObjectId(id)});
+        if (!firearm || !firearm.firearmMaintenanceHistory || firearm.firearmMaintenanceHistory.length === 0) {
+            client.close();
+            return { status: 404, jsonBody: { error: "No maintenance records found" }};
+        }
+
+        // Calculate the index of the last maintenance entry
+        const lastIndex = firearm.firearmMaintenanceHistory.length - 1;
+
+        // Update the last maintenance entry
+        const updateResult = await client.db("test").collection("firearm").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { [`firearmMaintenanceHistory.${lastIndex}`]: { date: body.date, description: body.description } } }
+        );
+
+        client.close();
+
+        if (updateResult.modifiedCount === 0) {
+            return { status: 404, jsonBody: { error: "Failed to update maintenance record" } };
+        }
+
+        return { status: 200, jsonBody: { message: "Maintenance record updated successfully" } };
+    }
+});
+app.http('deleteLastMaintenance', {
+    methods: ['DELETE'],
+    authLevel: 'anonymous',
+    route: 'firearm/maintenance/deleteLast/{id}',
+    handler: async (request) => {
+        const { id } = request.params;
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+
+        // First, find the firearm to ensure it exists and has maintenance records
+        const firearm = await client.db("test").collection("firearm").findOne({_id: new ObjectId(id)});
+        if (!firearm || !firearm.firearmMaintenanceHistory || firearm.firearmMaintenanceHistory.length === 0) {
+            client.close();
+            return { status: 404, jsonBody: { error: "No maintenance records found" }};
+        }
+
+        // Remove the last maintenance entry
+        const lastIndex = firearm.firearmMaintenanceHistory.length - 1;
+        const updateResult = await client.db("test").collection("firearm").updateOne(
+            { _id: new ObjectId(id) },
+            { $pop: { firearmMaintenanceHistory: 1 } }  // $pop with 1 removes the last element in an array
+        );
+
+        client.close();
+
+        if (updateResult.modifiedCount === 0) {
+            return { status: 404, jsonBody: { error: "Failed to delete maintenance record" } };
+        }
+
+        return { status: 200, jsonBody: { message: "Maintenance record deleted successfully" } };
+    }
+});
