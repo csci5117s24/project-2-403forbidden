@@ -11,7 +11,7 @@ function AddMaintenance() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('/api/firearms/maintenance')  
+        fetch('/api/firearm')  
             .then(response => response.json())
             .then(data => {
                 setFirearms(data);

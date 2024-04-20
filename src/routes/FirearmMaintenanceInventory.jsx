@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import 'bulma/css/bulma.min.css';
-import { useNavigate } from 'react-router-dom'; // 导入 useHistory
+import { useNavigate } from 'react-router-dom'; 
 import FirearmMaintenanceCard from "./FirearmMaintenanceCard.jsx";
 
 function FirearmMaintenanceInventory() {
