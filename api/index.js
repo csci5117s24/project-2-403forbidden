@@ -113,7 +113,7 @@ app.http('getFirearm', {
         userid = token.userId;
       }
       
-      const result = await client.db("test").collection("firearm").find({userid: userid}).toArray()
+      const result = await client.db("test").collection("firearm").find({}).toArray()
       client.close();
       return{
           status: 200, /* Defaults to 200 */
@@ -373,3 +373,80 @@ app.http('deleteRangeVisit', {
 
 
 
+app.http('addFirearmMaintenance', {
+    methods: ['POST'],
+    authLevel: 'anonymous',
+    route: 'firearm/maintenance/{id}',
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        const body = await request.json();
+        const id = request.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            return {
+                status: 400,
+                jsonBody: { error: "Invalid firearm ID" }
+            };
+        }
+
+        const maintenanceRecord = {
+            date: body.date,
+            description: body.description
+        };
+
+        const result = await client.db("test").collection("firearm").updateOne(
+            { _id: new ObjectId(id) },
+            { $push: { firearmMaintenanceHistory: maintenanceRecord } }
+        );
+
+        client.close();
+
+        if (result.modifiedCount === 0) {
+            return {
+                status: 404,
+                jsonBody: { error: "No firearm found with the provided ID" }
+            };
+        }
+
+        return {
+            status: 200,
+            jsonBody: { message: "Maintenance record added successfully" }
+        };
+    }
+});
+app.http('getLatestMaintenance', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'firearm/maintenance/latest/{id}',
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        const id = request.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            client.close();
+            return {
+                status: 400,
+                jsonBody: { error: "Invalid firearm ID" }
+            };
+        }
+
+        const result = await client.db("test").collection("firearm").findOne(
+            { _id: new ObjectId(id) },
+            { projection: { firearmMaintenanceHistory: { $slice: -1 } } }
+        );
+
+        client.close();
+
+        if (!result) {
+            return {
+                status: 404,
+                jsonBody: { error: "No firearm found" }
+            };
+        }
+
+        return {
+            status: 200,
+            jsonBody: { latestMaintenance: result.firearmMaintenanceHistory[0] || null }
+        };
+    }
+});
