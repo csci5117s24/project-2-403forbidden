@@ -15,6 +15,8 @@ import {Rangevisit_Add_Page} from './routes/Rangevisit_add_page'
 import {Rangevisit_Detail_Page} from './routes/Rangevisit_detail_page'
 import FirearmMaintenanceInventory from './routes/FirearmMaintenanceInventory'; 
 import AddMaintenance from './routes/AddMaintenance';
+import DetailMaintenance from './routes/DetailMaintenance';
+import EditMaintenance from './routes/EditMaintenance';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +29,10 @@ const router = createBrowserRouter([
       Rangevisit_Add_Page,
       Rangevisit_Detail_Page,
       { path: "/firearm_maintenance", element: <FirearmMaintenanceInventory /> },
-      { path: "/addMaintenance", element: <AddMaintenance /> } 
+      { path: "/addMaintenance", element: <AddMaintenance /> } ,
+      { path: "/detailMaintenance/:firearmId", element: <DetailMaintenance /> } ,
+      { path: "/editMaintenance/:id", element:<EditMaintenance /> }
+
     ]
   },
   

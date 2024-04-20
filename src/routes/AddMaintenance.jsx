@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import 'bulma/css/bulma.min.css'; // Ensure Bulma CSS is imported
 
 function AddMaintenance() {
@@ -8,6 +9,7 @@ function AddMaintenance() {
     const [description, setDescription] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLoading(true);
@@ -42,6 +44,7 @@ function AddMaintenance() {
             console.error('Failed to add maintenance:', await response.text());
         } else {
             alert('Maintenance record added successfully!');
+            navigate(-1);
         }
     };
 

@@ -2,12 +2,17 @@ import React from 'react';
 import 'bulma/css/bulma.min.css'; // 确保导入了 Bulma
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // 引入 FontAwesome 图标库
 import { faToolbox, faCalendarAlt, faTag, faIndustry, faInfoCircle } from '@fortawesome/free-solid-svg-icons'; // 引入所需的图标
-
+import { useNavigate } from 'react-router-dom';
 const FirearmMaintenanceCard = ({ firearm }) => {
+    const navigate = useNavigate();
     const latestMaintenance = firearm.firearmMaintenanceHistory && firearm.firearmMaintenanceHistory[firearm.firearmMaintenanceHistory.length - 1];
 
+    const handleCardClick = () => {
+        navigate(`/detailMaintenance/${firearm._id}`);
+    };
+
     return (
-        <div className="card" style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px' }}>
+        <div className="card" onClick={handleCardClick} style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px' }}>
             <div className="card-image">
                 <figure className="image is-4by3">
                     <img src={firearm.firearmImage} alt={`Firearm ${firearm.firearmName}`} />

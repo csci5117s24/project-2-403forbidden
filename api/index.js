@@ -544,3 +544,36 @@ app.http('getFirearmsWithMaintenance', {
         };
     }
 });
+app.http('getFirearmById', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'firearm/{id}',
+    handler: async (request) => {
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        const id = request.params.id;
+  
+        if (!ObjectId.isValid(id)) {
+          client.close();
+          return {
+            status: 400,
+            jsonBody: { error: "Invalid ID format" }
+          };
+        }
+  
+        const firearm = await client.db("test").collection("firearm").findOne({_id: new ObjectId(id)});
+        client.close();
+  
+        if (!firearm) {
+          return {
+            status: 404,
+            jsonBody: { error: "No firearm found with the provided ID" }
+          };
+        }
+  
+        return {
+            status: 200,
+            jsonBody: firearm
+        };
+    }
+  });
+  
