@@ -17,7 +17,7 @@ import FirearmMaintenanceInventory from './routes/FirearmMaintenanceInventory';
 import AddMaintenance from './routes/AddMaintenance';
 import DetailMaintenance from './routes/DetailMaintenance';
 import EditMaintenance from './routes/EditMaintenance';
-
+import { Firearm_Details_Page } from './routes/FirearmDetails.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,7 +31,8 @@ const router = createBrowserRouter([
       { path: "/firearm_maintenance", element: <FirearmMaintenanceInventory /> },
       { path: "/addMaintenance", element: <AddMaintenance /> } ,
       { path: "/detailMaintenance/:firearmId", element: <DetailMaintenance /> } ,
-      { path: "/editMaintenance/:id", element:<EditMaintenance /> }
+      { path: "/editMaintenance/:id", element:<EditMaintenance /> },
+      Firearm_Details_Page,
 
     ]
   },

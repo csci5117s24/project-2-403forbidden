@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import './FirearmCard.css'; // Make sure the CSS is linked properly in your project
+import './FirearmCard.css'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedFirearm, setEditedFirearm] = useState({ ...firearm });
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -12,6 +15,11 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
             [name]: value
         }));
     };
+    const handleOnClick = () => {
+        navigate(`/firearm/${firearm._id}`);
+        
+    };
+
 
     const saveChanges = () => {
       console.log(editedFirearm);
@@ -25,7 +33,7 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     };
 
     return (
-        <div className="firearm-card">
+        <div className="firearm-card" onClick={handleOnClick}>
             <img src={firearm.firearmImage} alt={`Firearm ${firearm.firearmName}`} className="firearm-image" />
             <div className="firearm-info">
                 {editMode ? (
