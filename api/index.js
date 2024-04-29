@@ -576,4 +576,23 @@ app.http('getFirearmById', {
         };
     }
   });
+
+  app.http('GetRangeVistByGunId', {
+    
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'firearm/{id}/rangevisit',
+    handler: async (request) => {
+        console.log("GetRangeVistByGunId");
+        const client = await mongoClient.connect(process.env.AZURE_MONGO_DB);
+        const id = request.params.id;
+        const rangevisits = await client.db("test").collection("rangevisit").find({}).toArray()
+        const result = rangevisits.filter(rangevisit => rangevisit.visitDetail.some(detail => detail.firearm === id))
+        client.close();
+        return {
+            status: 200,
+            jsonBody: result
+        };
+    }
+});
   
