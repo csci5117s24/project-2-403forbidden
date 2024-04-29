@@ -11,6 +11,7 @@ import {
 import UserInfoProvider from './UserInfoProvider'
 import { Firearm_Page } from './routes/Firearm_page';
 import { Firearm_Inventory_Page } from './routes/FirearmInventory.jsx';
+import { Firearm_Detail_Page } from './routes/Firearm_detail.jsx';
 import {Rangevisit_Add_Page} from './routes/Rangevisit_add_page'
 import {Rangevisit_Detail_Page} from './routes/Rangevisit_detail_page'
 import FirearmMaintenanceInventory from './routes/FirearmMaintenanceInventory'; 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       Firearm_Inventory_Page,
       Rangevisit_Add_Page,
       Rangevisit_Detail_Page,
+      Firearm_Detail_Page,
       { path: "/firearm_maintenance", element: <FirearmMaintenanceInventory /> },
       { path: "/addMaintenance", element: <AddMaintenance /> } ,
       { path: "/detailMaintenance/:firearmId", element: <DetailMaintenance /> } ,

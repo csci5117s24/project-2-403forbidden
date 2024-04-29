@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FirearmCard.css'; // Make sure the CSS is linked properly in your project
+import { Link } from 'react-router-dom';
 
 const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     const [editMode, setEditMode] = useState(false);
@@ -40,6 +41,7 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
                     </>
                 ) : (
                     <>
+                    <Link to={`/firearmDetail/${firearm._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                         <h2>{firearm.firearmName}</h2>
                         <p>Type: {firearm.firearmType}</p>
                         <p>Make: {firearm.firearmMake}</p>
@@ -47,7 +49,7 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
                         <p>Caliber: {firearm.firearmCaliber}</p>
                         <p>Price: ${firearm.firearmPrice}</p>
                         <p>Purchase Date: {firearm.firearmPurchasedate}</p>
-                    </>
+                    </Link></>
                 )}
             </div>
             <div className="card-actions">
