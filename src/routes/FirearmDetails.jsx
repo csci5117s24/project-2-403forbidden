@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bulma/css/bulma.min.css'; 
+import './FirearmDetails.css'; // Ensure you import your custom styles here
+
 
 const FirearmDetails = () => {
     const { firearmId } = useParams();

@@ -1,0 +1,24 @@
+.card {
+    margin: 2em; /* Adjust the value as needed for more space */
+  }
+  
+  .card-image img {
+    max-width: 100%; /* This ensures the image is responsive and doesn't overflow its container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Removes bottom space under the image */
+    margin-left: auto; /* Centers image in the case that it's not full width */
+    margin-right: auto; /* Centers image in the case that it's not full width */
+  }
+  
+  /* If you want to specifically limit the size of the image */
+  .card-image .image {
+    max-width: 500px; /* Or any size that fits your design */
+    margin: 0 auto; /* This centers the image in the card */
+  }
+
+  .box {
+    max-width: 960px; /* You can adjust this value to suit your design */
+    margin: 0 auto; /* This will center the box on the page */
+    padding: 20px; /* This adds some padding inside the box */
+  }
+  

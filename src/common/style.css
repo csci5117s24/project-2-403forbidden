@@ -48,18 +48,18 @@ gap: 10px;
   }
   
   .color2-back {
-    background-color: #f4f1bb;
+    background-color: #f4f1bb;;
   }
   
   .color3 {
     background-color: #9bc1bc;
   }
   .color4{
-    color: #f2daaa;
+    color: #41533b;
   }
   
   .color4-back{
-    background-color: #f2daaa;
+    background-color: #8C9171;
   }
   
   .color5{
@@ -75,7 +75,7 @@ gap: 10px;
   }
   
   .color6-back{
-    background-color: #f7d486;
+    background-color: #41533B;
   }
   
   .color7{
@@ -139,16 +139,18 @@ gap: 10px;
     /* flex-direction: row; is default, so you can omit it */
     justify-content: center; /* Center buttons horizontally */
     gap: 20px; /* Space between buttons */
+    margin-top: 20px;
   }
 
   .action-button {
+    margin-top: 20px;
     width: 200px; /* Large button width */
     height: 60px; /* Large button height */
     font-size: 20px; /* Larger font size for button text */
     cursor: pointer; /* Change cursor to pointer on hover */
     border-radius: 10px; /* Rounded corners for buttons */
-    border: 2px solid #000; /* Button border */
-    background-color: #f0f0f0; /* Light background color for buttons */
+    border: 2px solid #524d41; /* Button border */
+    background-color: #D9DBD1; /* Light background color for buttons */
     transition: background-color 0.3s; /* Smooth transition for button hover effect */
   }
   

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './FirearmCard.css'; // Make sure the CSS is linked properly in your project
+import 'bulma/css/bulma.min.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './FirearmCard.css'; 
 
 const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     const [editMode, setEditMode] = useState(false);
@@ -33,9 +34,13 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     };
 
     return (
-        <div className="firearm-card" onClick={handleOnClick}>
-            <img src={firearm.firearmImage} alt={`Firearm ${firearm.firearmName}`} className="firearm-image" />
-            <div className="firearm-info">
+        <div className="card" style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px' }}>
+            <div className="card-image">
+                <figure className="image is-4by3">
+                    <img src={firearm.firearmImage} alt={`Firearm ${firearm.firearmName}`} className="firearm-image" />
+                </figure>
+            </div>
+            <div className="card-content" onClick={handleOnClick}>
                 {editMode ? (
                     <>
                         <input type="text" name="firearmName" value={editedFirearm.firearmName} onChange={handleInputChange} className="editable-field" />
@@ -48,32 +53,42 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
                     </>
                 ) : (
                     <>
-                    <Link to={`/firearmDetail/${firearm._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <h2>{firearm.firearmName}</h2>
-                        <p>Type: {firearm.firearmType}</p>
-                        <p>Make: {firearm.firearmMake}</p>
-                        <p>Model: {firearm.firearmModel}</p>
-                        <p>Caliber: {firearm.firearmCaliber}</p>
-                        <p>Price: ${firearm.firearmPrice}</p>
-                        <p>Purchase Date: {firearm.firearmPurchasedate}</p>
-                    </Link></>
-                )}
-            </div>
-            <div className="card-actions">
-                {editMode ? (
-                    <>
-                        <button onClick={saveChanges} className="button save-button">Save</button>
-                        <button onClick={cancelChanges} className="button cancel-button">Cancel</button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={() => setEditMode(true)} className="button edit-button">Edit</button>
-                        <button onClick={() => onDelete(firearm)} className="button delete-button">Delete</button>
+                        <Link to={`/firearmDetail/${firearm._id}`} className="nodecoration">
+                            <p className="title is-4">{firearm.firearmName}</p>
+                            <p className="subtitle is-6">
+                                Type: {firearm.firearmType}<br />
+                                Make: {firearm.firearmMake}<br />
+                                Model: {firearm.firearmModel}<br />
+                                Caliber: {firearm.firearmCaliber}<br />
+                                Price: ${firearm.firearmPrice}<br />
+                                Purchase Date: {firearm.firearmPurchasedate}
+                            </p>
+                        </Link>
                     </>
                 )}
             </div>
+            {editMode ? (
+    <div className="card-footer">
+        <button className="card-footer-item button is-success" onClick={saveChanges}>
+            Save
+        </button>
+        <button className="card-footer-item button is-warning" onClick={cancelChanges}>
+            Cancel
+        </button>
+    </div>
+) : (
+    <div className="card-footer">
+        <button className="card-footer-item button is-info" onClick={() => setEditMode(true)}>
+            Edit
+        </button>
+        <button className="card-footer-item button is-danger" onClick={() => onDelete(firearm)}>
+            Delete
+        </button>
+    </div>
+)}
+
         </div>
     );
-};
+}
 
 export default FirearmCard;
