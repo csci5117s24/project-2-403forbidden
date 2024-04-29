@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './FirearmCard.css'; // Make sure the CSS is linked properly in your project
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     const [editMode, setEditMode] = useState(false);
