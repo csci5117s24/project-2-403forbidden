@@ -17,6 +17,10 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
         }));
     };
     const handleOnClick = () => {
+        if (editMode){
+            return;
+        }
+
         navigate(`/firearm/${firearm._id}`);
         
     };
@@ -34,13 +38,13 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
     };
 
     return (
-        <div className="card" style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px' }}>
-            <div className="card-image">
+        <div className="card" style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px' }} >
+            <div className="card-image" onClick={handleOnClick}>
                 <figure className="image is-4by3">
                     <img src={firearm.firearmImage} alt={`Firearm ${firearm.firearmName}`} className="firearm-image" />
                 </figure>
             </div>
-            <div className="card-content" onClick={handleOnClick}>
+            <div className="card-content"  onClick={handleOnClick}>
                 {editMode ? (
                     <>
                         <input type="text" name="firearmName" value={editedFirearm.firearmName} onChange={handleInputChange} className="editable-field" />
@@ -53,7 +57,7 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
                     </>
                 ) : (
                     <>
-                        <Link to={`/firearmDetail/${firearm._id}`} className="nodecoration">
+                        <Link to={`/firearm/${firearm._id}`} className="nodecoration">
                             <p className="title is-4">{firearm.firearmName}</p>
                             <p className="subtitle is-6">
                                 Type: {firearm.firearmType}<br />

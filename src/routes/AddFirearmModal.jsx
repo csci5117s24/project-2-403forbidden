@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import 'bulma/css/bulma.css'; // Ensure Bulma is imported if not already globally
 
 function AddFirearmModal({ isOpen, onClose }) {
     const [uploadUrl, setUploadUrl] = useState('');
@@ -96,39 +97,80 @@ function AddFirearmModal({ isOpen, onClose }) {
     }
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content">
+        <div className="modal is-active">
+        <div className="modal-background" onClick={onClose}></div>
+        <div className="modal-card">
+            <header className="modal-card-head">
+                <p className="modal-card-title">Add Firearm</p>
+                <button className="delete" aria-label="close" onClick={onClose}></button>
+            </header>
+            <section className="modal-card-body">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <label>Image File</label>
-                    <input type="file" onChange={handleImageChange} />
-                    {imagePreview && <img src={imagePreview} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />}
+                    <div className="field">
+                        <label className="label">Image File</label>
+                        <div className="control">
+                            <input className="input" type="file" onChange={handleImageChange} />
+                            {imagePreview && <img src={imagePreview} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />}
+                        </div>
+                    </div>
 
-                    <label>Firearm Name</label>
-                    <input type="text" name="firearmName" value={firearmData.firearmName} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Firearm Name</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmName" value={firearmData.firearmName} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Firearm Type</label>
-                    <input type="text" name="firearmType" value={firearmData.firearmType} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Firearm Type</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmType" value={firearmData.firearmType} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Firearm Make</label>
-                    <input type="text" name="firearmMake" value={firearmData.firearmMake} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Firearm Make</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmMake" value={firearmData.firearmMake} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Firearm Model</label>
-                    <input type="text" name="firearmModel" value={firearmData.firearmModel} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Firearm Model</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmModel" value={firearmData.firearmModel} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Caliber</label>
-                    <input type="text" name="firearmCaliber" value={firearmData.firearmCaliber} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Caliber</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmCaliber" value={firearmData.firearmCaliber} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Price</label>
-                    <input type="text" name="firearmPrice" value={firearmData.firearmPrice} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Price</label>
+                        <div className="control">
+                            <input className="input" type="text" name="firearmPrice" value={firearmData.firearmPrice} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <label>Purchase Date</label>
-                    <input type="date" name="firearmPurchasedate" value={firearmData.firearmPurchasedate} onChange={handleInputChange} />
+                    <div className="field">
+                        <label className="label">Purchase Date</label>
+                        <div className="control">
+                            <input className="input" type="date" name="firearmPurchasedate" value={firearmData.firearmPurchasedate} onChange={handleInputChange} />
+                        </div>
+                    </div>
 
-                    <button type="submit">Submit Firearm Info</button>
+                    <button className="button is-success" type="submit">Submit Firearm Info</button>
                 </form>
-                <button onClick={onClose}>Close</button>
-            </div>
+            </section>
+            <footer className="modal-card-foot">
+                <button className="button" onClick={onClose}>Close</button>
+            </footer>
         </div>
+    </div>
     );
 }
 

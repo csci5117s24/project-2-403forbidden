@@ -4,7 +4,6 @@ import FirearmCard from "./FirearmCard.jsx";
 import AddFirearmModal from "./AddFirearmModal.jsx";
 import "./FirearmInventory.css";
 function Firearm_Inventory() {
-    // const [isTablet, setIsTablet] = useState(window.innerWidth <= 768);
     const [firearms, setFirearms] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
@@ -35,35 +34,45 @@ const handleDelete = async (firearmId) => {
         console.error('Failed to delete the firearm');
     }
 };
-const handleUpdate = async (firearm) => {
-    console.log(firearm);
-    const response = await fetch('/api/firearm/'+firearm._id, {
+const handleUpdate = async (updatedFirearm) => {
+    console.log(updatedFirearm);
+
+    const originalFirearms = [...firearms];
+
+    setFirearms(firearms => firearms.map(firearm =>
+        firearm._id === updatedFirearm._id ? updatedFirearm : firearm
+    ));
+
+    const response = await fetch(`/api/firearm/${updatedFirearm._id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(firearm)
+        body: JSON.stringify(updatedFirearm)
     });
 
-    if (response.ok) {
-        console.log('Firearm updated successfully!');
-        fetchFirearms();
-    } else {
+    if (!response.ok) {
         console.error('Failed to update the firearm');
+        setFirearms(originalFirearms);  
+    } else {
+        console.log('Firearm updated successfully!');
     }
 };
 
 
 
 
+
     return (
         <div className="firearm-inventory">
-            <div className="card-container">
+            <div className="columns is-multiline">
             {firearms.map((firearm) => (
+                <div className="column is-one-third" key={firearm._id}>
                 <FirearmCard key={firearm._id} firearm={firearm} onDelete={() => handleDelete(firearm._id)} onUpdate={(edited)=>handleUpdate(edited)}/>
+                </div>
             ))}
             </div>
-            <button className="add-firearm-btn" onClick={openModal}>
+            <button className="button is-primary fixed-add-button" onClick={openModal}>
                 + Add New Firearm
             </button>
             <AddFirearmModal isOpen={showModal} onClose={closeModal} />
