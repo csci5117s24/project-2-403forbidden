@@ -13,8 +13,8 @@
             }
           },
           "login": {
-            "nameClaimType": "email",
-            "scopes": ["openid", "profile"],
+            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "scopes": ["openid", "profile", "offline_access"],
             "loginParameterNames": []
           }
         }
