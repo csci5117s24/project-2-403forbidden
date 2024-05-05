@@ -19,6 +19,7 @@ import AddMaintenance from './routes/AddMaintenance';
 import DetailMaintenance from './routes/DetailMaintenance';
 import EditMaintenance from './routes/EditMaintenance';
 import { Firearm_Details_Page } from './routes/FirearmDetails.jsx';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,7 +51,10 @@ root.render(
   </React.StrictMode>
 );
 
+serviceWorkerRegistration.register();
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

@@ -7,6 +7,8 @@ import { useLoaderData } from 'react-router-dom';
 import MapImage from '../common/MapImage';
 import RangeVisitItem from '../common/RangeVisitItem';
 import { Link } from 'react-router-dom';
+import addNotification from 'react-push-notification';
+
 async function loader({ request }) {
   const allRangeVisits = await fetch("/api/rangevisits/all", {
       signal: request.signal,
@@ -70,6 +72,13 @@ function App() {
         } else {
           setVisits([newlyAddedRangeVisit]);
         }
+        addNotification({
+          title: 'A new range visit has been created',
+          message: 'click to add details',
+          duration: 5000,
+          native: true,
+          onClick: () => window.location = "/rangevisit/" + newlyAddedRangeVisit._id,
+        });
       }
     };
 
