@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './style.css'
 const Carousel = () => {
   // Define background images and texts
@@ -21,20 +21,33 @@ const Carousel = () => {
     },
   ];
 
-  // Manage the current slide index
   const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
 
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(nextSlide, 5000); // Restart the interval
+  };
+  // Function to advance to the next slide
   const nextSlide = () => {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    resetInterval();
   };
 
+  // Function to go back to the previous slide
   const prevSlide = () => {
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    resetInterval();
   };
 
+  // Reset the interval timer to avoid interference
+  
+  // Initialize the automatic slide timer when the component mounts
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval); // Clear the interval on component unmount
+    resetInterval();
+    return () => clearInterval(intervalRef.current); // Clear interval on component unmount
   }, []);
 
   return (
