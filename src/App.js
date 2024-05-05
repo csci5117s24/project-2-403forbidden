@@ -2,7 +2,7 @@ import './App.css';
 import './common/style.css'
 import { Link, Outlet } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-
+import Carousel from './common/FrontPageImage';
 function App() {
   const [userInfo, setUserInfo] = useState();
   useEffect(() => {
@@ -48,6 +48,8 @@ function App() {
           </div>
         </div>
       </div>
+      {!userInfo && <Carousel />} {/* Show carousel if user isn't logged in */}
+
       <Outlet />
     </div>
   );
