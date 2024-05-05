@@ -49,8 +49,7 @@ function DetailMaintenance() {
     return (
         <div className="container">
             <FirearmMaintenanceCard firearm={firearm} />
-
-            <div className="buttons">
+            <div className="buttons is-pulled-right" style={{ position: 'fixed', bottom: 20, right: 20 }}>
                 <button onClick={() => navigate(`/editMaintenance/${firearmId}`)} className="button is-info">
                     <FontAwesomeIcon icon={faEdit} /> Edit
                 </button>
