@@ -38,7 +38,7 @@ export default function AddItemForm({ handleSubmit, firearmlist}) {
                 </option>
                 ))}
             </select>
-            <input type="text" placeholder="Enter value" value={value} onChange={e => setValue(e.target.value)} required />
+            <input type="text" placeholder="Enter value (rounds)" value={value} onChange={e => setValue(e.target.value)} required />
             <div className="form-actions">
                 <button type="button" onClick={handleCancel}>Cancel</button>
                 <button type="button" onClick={handleInternalSubmit}>Add</button>

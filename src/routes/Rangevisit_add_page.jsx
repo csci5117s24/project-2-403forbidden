@@ -18,7 +18,37 @@ async function loader({ request }) {
       }
   });
   const rangevisits = await allRangeVisits.json();
-  console.log(rangevisits);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset the time to midnight for comparison
+
+  // Filter and sort range visits
+  const upcomingVisits = rangevisits.data
+    .filter(visit => {
+      // Parse visit date and check if it's after today's date
+      const visitDate = new Date(visit.visitDate);
+      return visitDate >= today; // Only future dates
+    })
+    .sort((a, b) => {
+      // Sort by date (closest to today first)
+      const dateA = new Date(a.visitDate);
+      const dateB = new Date(b.visitDate);
+      return dateA - dateB; // Ascending order (closest first)
+    });
+
+  // The first item is the visit closest to today
+  const closestVisit = upcomingVisits[0];
+
+  if (closestVisit){
+    addNotification({
+      title: 'Your next scheduled range visit is coming!',
+      message: 'click to see more details',
+      duration: 5000,
+      native: true,
+      onClick: () => window.location = "/rangevisit/" + closestVisit._id,
+    });
+  } 
+
+  
   return {rangevisits};
 }
 
@@ -127,6 +157,7 @@ function App() {
         selected={selectedDate}
         onChange={handleDateChange}
         placeholderText="Your date of visit"
+        className="custom-datepicker"
       />
       <div className="duration-container">
         <input
@@ -154,13 +185,20 @@ function App() {
   {allVisits.length > 0 && (
     <div className="right-container">
       <div className="grid-container">
-        {allVisits.map((visit, index) => (
-          <RangeVisitItem key={index} visit={visit} onDelete={handleDelete} />
-        ))}
+        {allVisits.sort((a, b) => {
+          // Convert visit dates to Date objects for accurate comparison
+          const dateA = new Date(a.visitDate);
+          const dateB = new Date(b.visitDate);
+          return dateB - dateA; // Ascending order (oldest to newest)
+          // return dateB - dateA; // For descending order (newest to oldest)
+        })
+        .map((visit, index) => (
+                <RangeVisitItem key={index} visit={visit} onDelete={handleDelete} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  )}
-</div>
         
     );
 }

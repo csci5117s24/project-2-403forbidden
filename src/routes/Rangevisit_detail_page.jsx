@@ -113,7 +113,8 @@ function App() {
         
 
         {/* Detail list */}
-        <div className="detail-list">
+        {visitDetail.length > 0 && (
+          <div className="detail-list">
           {visitDetail.map((detail, index) => {
             const firearm = firearmsdata.find(f => f._id === detail.firearm);
 
@@ -132,6 +133,8 @@ function App() {
             );
           })}
         </div>
+        )}
+        
       </div>
       
         

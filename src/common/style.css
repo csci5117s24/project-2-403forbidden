@@ -183,7 +183,7 @@ z-index: 2;
     flex-direction: column;  /* Stack children vertically */
     width: 100%;             /* Full width of the parent */
   }
-  
+
   .left-container {
     position: fixed;
     top: 15vh;
@@ -191,30 +191,69 @@ z-index: 2;
     width: 33.3%;
     overflow-y: auto;
     padding: 20px;
-    box-sizing: border-box; /* Includes padding in the width and height calculations */
-
-    border-radius: 15px;    /* Adjust radius for desired roundness */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
-    overflow: visible; /* Changes overflow to visible */
+    box-sizing: border-box; /* Includes padding in width calculations */
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly more opaque background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
+    z-index: 10; /* Ensure it's above other elements */
   }
   
   .inputs-container {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;      /* Reduced bottom margin */
+    flex-direction: column; /* Align inputs vertically */
+    gap: 10px; /* Consistent spacing between elements */
+    margin-bottom: 15px;
   }
   
   .duration-container {
     display: flex;
     align-items: center;
+    gap: 5px; /* Space between input and label */
   }
   
+  /* Duration input */
+  .duration-input {
+    width: 60%; /* Adjust width for the input */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  
+  .map-container {
+    margin-top: 20px;
+    width: 100%; /* Full width of the parent container */
+    height: 250px; /* Adjust to desired height */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0f0; /* Light background color */
+  }
+  
+  /* Add visit button */
+  .add-visit-button {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 15px;
+    background-color: #28a745; /* Green color */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+  }
+  
+  .add-visit-button:hover {
+    background-color: #218838; /* Darken the green on hover */
+  }
+
   .map-container {
     margin-top: 20px;         /* Ensures a small gap from the inputs-container, adjust as needed */
     width: 100%;              /* Ensure it takes full width of the left-container */
     height: auto;             /* Adjust height based on content or set a fixed height */
     overflow: hidden;
+    border-radius: 8px;
   }
   
   .right-container {
@@ -599,7 +638,7 @@ z-index: 2;
   margin-bottom: 15px;
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
-  border-radius: 4px;
+  border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
   color: #fff; /* Ensure text contrast */
   z-index: 2;
@@ -611,7 +650,7 @@ z-index: 2;
   margin-bottom: 10px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent for readability */
-  border-radius: 4px;
+  border-radius: 8px;
   z-index: 2;
 }
 
@@ -651,8 +690,7 @@ z-index: 2;
 .add-item > button {
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  border: none;
-  border-radius: 50%;
+  border-radius: 8px;
   padding: 10px;
   cursor: pointer;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
@@ -691,4 +729,51 @@ z-index: 2;
 
 .form-actions button:hover {
   opacity: 0.8; /* Subtle hover effect */
+}
+
+/* DatePicker styles */
+.custom-datepicker {
+  font-size: 18px; /* Adjust the font size */
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box; /* Include padding in the width calculation */
+  outline: none;
+  background-color: #fff;
+}
+
+.custom-datepicker:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Subtle shadow for focused state */
+}
+
+.grid-item {
+  position: relative;
+  border-radius: 8px; /* Rounded corners */
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly more opaque background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
+  margin-bottom: 15px; /* Space between grid items */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid-item:hover {
+  transform: scale(1.02); /* Slight scaling effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deepened shadow on hover */
+}
+
+.grid-item-link {
+  display: block;
+  text-decoration: none;
+  color: #333; /* Text color for the link */
+  padding: 15px;
+}
+
+.grid-item-link p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px; /* Space between date and duration */
 }
