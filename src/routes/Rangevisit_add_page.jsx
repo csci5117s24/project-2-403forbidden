@@ -118,6 +118,9 @@ function App() {
 
     return (
       <div className="main-container">
+  {/* Semi-transparent background image overlay */}
+  <div className="main-background-overlay"></div>
+
   <div className="left-container">
     <div className="inputs-container">
       <DatePicker
@@ -140,21 +143,23 @@ function App() {
       {!lat || !lng ? (
         <h1>Loading...</h1>
       ) : (
-        <MapImage lat={lat} lng={lng}/>
+        <MapImage lat={lat} lng={lng} />
       )}
     </div>
     <button className="add-visit-button" onClick={handleAddVisit}>
       Add new visit
     </button>
   </div>
-  <div className="right-container">
-    {/* Placeholder or additional content goes here */}
-    <div className="grid-container">
-    {allVisits.map((visit) => (
-      <RangeVisitItem visit={visit} onDelete = {handleDelete}/>
-    ))}
+
+  {allVisits.length > 0 && (
+    <div className="right-container">
+      <div className="grid-container">
+        {allVisits.map((visit, index) => (
+          <RangeVisitItem key={index} visit={visit} onDelete={handleDelete} />
+        ))}
+      </div>
     </div>
-  </div>
+  )}
 </div>
         
     );

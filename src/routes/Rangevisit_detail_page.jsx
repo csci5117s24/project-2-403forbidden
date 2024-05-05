@@ -95,37 +95,43 @@ function App() {
 
     return (
       <div className="vertical-grid">
+        {/* Semi-transparent background image overlay */}
+        <div className="vertical-grid-background-overlay"></div>
+
+        {/* Visit item */}
         <div className="visit-item">
           <div className="info-container">
-              <p className="date">{moment(visitDate).format('YYYY-MM-DD')}</p>
-              <p className="duration">{visitDuration} min</p>
+            <p className="date">{moment(visitDate).format('YYYY-MM-DD')}</p>
+            <p className="duration">{visitDuration} min</p>
           </div>
           <div className="map-container">
-            <MapImage lat={visitLat} lng={visitLng}/>
+            <MapImage lat={visitLat} lng={visitLng} />
           </div>
+          <AddItemForm handleSubmit={handleSubmit} firearmlist={firearmsdata}></AddItemForm>
         </div>
-        <AddItemForm handleSubmit={handleSubmit} firearmlist = {firearmsdata}></AddItemForm>
+
+        
+
+        {/* Detail list */}
         <div className="detail-list">
-        {visitDetail.map((detail, index) => {
-          const firearm = firearmsdata.find(f => f._id === detail.firearm);
+          {visitDetail.map((detail, index) => {
+            const firearm = firearmsdata.find(f => f._id === detail.firearm);
 
-          return (
-            <div key={detail.id} className="detail-item"> {/* Use UUID for key if available */}
-              <button
-                className="range-visit-detail-delete-button"
-                onClick={() => handleDelete(detail.id)} // Assuming handleDelete function exists
-                aria-label="Remove item"
-                style={{borderRadius: '50%', padding: '2px 5px', marginLeft: '10px'}}
-              >
-                ✕
-              </button>
-              <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
-              <span className="value">{detail.value}</span>
-            </div>
-          );
-        })}
-      </div>
-
+            return (
+              <div key={detail.id} className="detail-item">
+                <button
+                  className="range-visit-detail-delete-button"
+                  onClick={() => handleDelete(detail.id)}
+                  aria-label="Remove item"
+                >
+                  ✕
+                </button>
+                <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
+                <span className="value">{detail.value}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
       
         

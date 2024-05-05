@@ -22,26 +22,29 @@ export default function AddItemForm({ handleSubmit, firearmlist}) {
 
     return (
         <div className="add-item">
-            <button onClick={toggleFormVisibility}>
-                {isFormVisible ? '-' : '+'}
-            </button>
-            {isFormVisible && (
-                <div className="form-container">
-                    <select required value={firearm} onChange={e => setFirearm(e.target.value)}>
-                        <option value="">Select Firearm</option>
-                        {firearmlist.map((firearm) => (
-                        <option key={firearm._id} value={firearm._id} className='color7'>
-                            {firearm.firearmName}
-                        </option>
-                        ))}
-                    </select>
-                    <input type="text" placeholder="Enter value" value={value} onChange={e => setValue(e.target.value)} required />
-                    <div className="form-actions">
-                        <button type="button" onClick={handleCancel}>Cancel</button>
-                        <button type="button" onClick={handleInternalSubmit}>Add</button>
-                    </div>
-                </div>
-            )}
+        {/* Toggle button */}
+        <button onClick={toggleFormVisibility}>
+            {isFormVisible ? '-' : 'Add Detail'}
+        </button>
+
+        {/* Floating form-container */}
+        {isFormVisible && (
+            <div className="form-container">
+            <select required value={firearm} onChange={e => setFirearm(e.target.value)}>
+                <option value="">Select Firearm</option>
+                {firearmlist.map((firearm) => (
+                <option key={firearm._id} value={firearm._id} className='color7'>
+                    {firearm.firearmName}
+                </option>
+                ))}
+            </select>
+            <input type="text" placeholder="Enter value" value={value} onChange={e => setValue(e.target.value)} required />
+            <div className="form-actions">
+                <button type="button" onClick={handleCancel}>Cancel</button>
+                <button type="button" onClick={handleInternalSubmit}>Add</button>
+            </div>
+            </div>
+        )}
         </div>
     );
 }

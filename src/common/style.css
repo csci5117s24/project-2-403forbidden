@@ -16,6 +16,7 @@
 display: flex;
 justify-content: center; /* Centers the buttons horizontally */
 gap: 10px;
+z-index: 2;
 }
 
 .bottom-button-container {
@@ -191,11 +192,10 @@ gap: 10px;
     overflow-y: auto;
     padding: 20px;
     box-sizing: border-box; /* Includes padding in the width and height calculations */
-  
-    border: 2px solid #ccc; /* Example border color and width */
+
     border-radius: 15px;    /* Adjust radius for desired roundness */
-    background-color: #fff; /* Optional: sets a background color for the container */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Optional: adds shadow for depth */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
     overflow: visible; /* Changes overflow to visible */
   }
   
@@ -248,7 +248,7 @@ gap: 10px;
   }
   
   .grid-item {
-    background-color: #fff; /* Background color for each item */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
     overflow: hidden; /* Ensures nothing spills out of the rounded corners */
@@ -276,21 +276,41 @@ gap: 10px;
   .visit-item {
     display: flex;
     flex-direction: column;
-    width: 75%;
-    height: 50vh;
+    width: 50%;
     margin-bottom: 20px; /* Space between items */
 }
 
+/* Info container */
 .info-container {
-    display: flex;
-    justify-content: space-between; /* Aligns date and duration side by side */
-    padding: 10px;
-    background-color: #f0f0f0; /* Light grey background for the info area */
+  display: flex;
+  justify-content: space-between; /* Aligns date and duration side by side */
+  align-items: center; /* Vertically centers the items */
+  padding: 10px;
+  margin-bottom: 10px; /* Adds space between this and the next element */
+  background-color: #f0f0f0; /* Light grey background */
+  border-radius: 8px; /* Rounded corners for the container */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* Styling for date and duration items */
 .date, .duration {
-    margin: 0;
-    font-size: 16px; /* Adjust font size as needed */
+  margin: 0; /* Remove default margin */
+  font-size: 16px; /* Adjust font size as needed */
+  color: #333; /* Darker color for contrast */
+  font-weight: bold; /* Make the text stand out */
+}
+
+/* Optional: Additional styles for clarity */
+.date::before {
+  content: 'Date: '; /* Add a prefix for the date label */
+  font-weight: normal;
+  color: #666;
+}
+
+.duration::before {
+  content: 'Duration: '; /* Add a prefix for the duration label */
+  font-weight: normal;
+  color: #666;
 }
 
 .map-container {
@@ -303,16 +323,13 @@ gap: 10px;
     height: auto; /* Keeps the image aspect ratio */
 }
 
-.add-item button {
-  font-size: 24px; /* Large + sign */
-  cursor: pointer;
-}
 
 .form-container {
   margin-top: 10px;
   background-color: #f2f2f2;
   padding: 10px;
   width: 75%;
+  z-index: 10;
 }
 
 .form-container select, .form-container input {
@@ -332,6 +349,7 @@ gap: 10px;
 .add-item button {
   font-size: 24px; /* Large + sign */
   cursor: pointer;
+  z-index: 10;
 }
 
 .form-container {
@@ -472,4 +490,205 @@ gap: 10px;
 .arrow {
   color: #fff;
   font-size: 2em;
+}
+
+.components-container {
+  height: 80vh;
+}
+
+/* Semi-transparent overlay with background image */
+.components-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../public/frontpage.png'); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2; /* Adjust opacity for desired transparency */
+  z-index: 1; /* Ensures the overlay is below the buttons */
+}
+
+/* Buttons that appear above the background image */
+.action-button {
+  position: relative; /* Ensure it's above the overlay */
+  display: inline-block;
+  margin: 5px 10px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for text visibility */
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+  z-index: 2; /* Ensures buttons are above the overlay */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow for buttons */
+}
+
+.action-button:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darken background on hover */
+}
+
+.main-container {
+  height: 80vh; /* Minimum height of 80% of the viewport height */
+}
+
+/* Semi-transparent overlay with background image */
+.main-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Full height of the main container */
+  background-image: url('../../public/rangevisit.png'); /* Path to your image */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2; /* Adjust for desired transparency */
+  z-index: 1; /* Places the overlay behind the content */
+}
+
+/* Inner containers */
+.left-container, .right-container {
+  z-index: 2; /* Keeps the containers above the overlay */
+}
+
+.inputs-container, .map-container{
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
+  color: #fff; /* Ensure contrast with the background */
+}
+
+.grid-container{
+  z-index: 1;
+  color: #fff; /* Ensure contrast with the background */
+}
+
+.add-visit-button {
+  z-index: 2; /* Keeps it above the overlay */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent button background */
+  color: #fff; /* Text color */
+  cursor: pointer;
+}
+
+.add-visit-button:hover {
+  background-color: rgba(0, 0, 0, 0.9); /* Darken on hover */
+}
+
+.vertical-grid {
+  min-height: 80vh; /* Adjust height if necessary */
+}
+
+/* Semi-transparent overlay with a background image */
+.vertical-grid-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Full height of the main container */
+  background-image: url('../../public/rangevisit.png'); /* Path to your image */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2; /* Adjust for desired transparency */
+  z-index: 0; /* Places the overlay behind the content */
+}
+
+/* Child containers within the vertical grid */
+.visit-item, .detail-list {
+  position: relative; /* Ensure inner content is above the overlay */
+  z-index: 2; /* Keeps the elements above the overlay */
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
+  color: #fff; /* Ensure text contrast */
+  z-index: 2;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent for readability */
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.range-visit-detail-delete-button {
+  background-color: rgba(255, 0, 0, 0.6); /* Semi-transparent red button */
+  color: #fff; /* Text color for button */
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Optional: subtle shadow */
+  z-index: 2;
+}
+
+/* Container for the add-item button and form */
+.add-item {
+  position: relative; /* Contains the floating form */
+}
+
+/* Floating form-container */
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the form horizontally and vertically */
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background for readability */
+  color: #fff; /* Ensure contrast against background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow */
+  z-index: 10; /* Ensure it floats above other content */
+  width: 300px; /* Adjust width based on design needs */
+}
+
+/* Style for the toggle button */
+.add-item > button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px; /* Space between the button and the form */
+}
+
+/* Individual form elements */
+.form-container select, .form-container input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+/* Form action buttons */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-actions button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #0057e7;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.form-actions button:last-child {
+  background-color: #d9534f; /* Red button for Cancel */
+}
+
+.form-actions button:hover {
+  opacity: 0.8; /* Subtle hover effect */
 }

@@ -10,6 +10,7 @@
   text-align: center; /* Center-align the text */
   display: inline-block; /* Make the h1 width only as wide as its content */
   margin: 20px; /* Margin around the h1 for some spacing */
+  z-index: 2;
 }
 
 .App-logo {

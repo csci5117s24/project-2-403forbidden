@@ -11,15 +11,30 @@ function App() {
     })();
   }, []);
 
+  const findClaimValue = (claims, claimType) => {
+    const claim = claims.find(c => c.typ === claimType);
+    return claim ? claim.val : null;
+  };
+  
+  // Modified async function to fetch and extract user information
   async function getUserInfo() {
     try {
       const response = await fetch('/.auth/me');
       const payload = await response.json();
       const { clientPrincipal } = payload;
-      //console.log(clientPrincipal)
-      return clientPrincipal;
+  
+      // Extract relevant fields to create a custom userInfo object
+      const userInfo = {
+        userId: clientPrincipal.userId,
+        userDetails: findClaimValue(clientPrincipal.claims, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"),
+        email: findClaimValue(clientPrincipal.claims, "emails"),
+        roles: clientPrincipal.userRoles,
+        identityProvider: clientPrincipal.identityProvider
+      };
+  
+      return userInfo; // Return the custom user info object
     } catch (error) {
-      console.error('No profile could be found');
+      console.error('No profile could be found:', error);
       return undefined;
     }
   }
