@@ -1,13 +1,22 @@
 import './App.css';
 import './common/style.css'
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet ,useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Carousel from './common/FrontPageImage';
 function App() {
   const [userInfo, setUserInfo] = useState();
+  const navigate = useNavigate();
+  const redirectToHome = () => navigate('/', { replace: true });
+
   useEffect(() => {
     (async () => {
-      setUserInfo(await getUserInfo());
+      const user = await getUserInfo();
+      setUserInfo(user);
+
+      // If not logged in, redirect to home page
+      if (!user) {
+        redirectToHome();
+      }
     })();
   }, []);
 
