@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './FirearmCard.css'; 
 
-const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
+const FirearmCard = ({ firearm, onUpdate, onDelete, displayOnly = false}) => {
     const [editMode, setEditMode] = useState(false);
     const [editedFirearm, setEditedFirearm] = useState({ ...firearm });
     const navigate = useNavigate();
@@ -71,25 +71,27 @@ const FirearmCard = ({ firearm, onUpdate, onDelete }) => {
                     </>
                 )}
             </div>
-            {editMode ? (
-    <div className="card-footer">
-        <button className="card-footer-item button is-success" onClick={saveChanges}>
-            Save
-        </button>
-        <button className="card-footer-item button is-warning" onClick={cancelChanges}>
-            Cancel
-        </button>
-    </div>
-) : (
-    <div className="card-footer">
-        <button className="card-footer-item button is-info" onClick={() => setEditMode(true)}>
-            Edit
-        </button>
-        <button className="card-footer-item button is-danger" onClick={() => onDelete(firearm)}>
-            Delete
-        </button>
-    </div>
-)}
+            {!displayOnly && (
+                editMode ? (
+                    <div className="card-footer">
+                        <button className="card-footer-item button is-success" onClick={saveChanges}>
+                            Save
+                        </button>
+                        <button className="card-footer-item button is-warning" onClick={cancelChanges}>
+                            Cancel
+                        </button>
+                    </div>
+                ) : (
+                    <div className="card-footer">
+                        <button className="card-footer-item button is-info" onClick={() => setEditMode(true)}>
+                            Edit
+                        </button>
+                        <button className="card-footer-item button is-danger" onClick={() => onDelete(firearm)}>
+                            Delete
+                        </button>
+                    </div>
+                )
+            )}
 
         </div>
     );

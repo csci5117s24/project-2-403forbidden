@@ -60,7 +60,7 @@ function App() {
         </div>
         <div className='bottom-buttons'>
           <div className='bottom-button-container'>
-          {userInfo && <Link to="/firearm_inventory" className='bottom-link'>Firearm</Link>}
+          {userInfo && <Link to="/firearm_inventory" className='bottom-link'>Inventory</Link>}
           {/* {!userInfo && <a href="/.auth/login/github?post_login_redirect_uri=/home" className='bottom-link'>Login</a>} */}
           {!userInfo && <a href="/.auth/login/aadb2c?post_login_redirect_uri=/home" className='bottom-link'>Login</a>}
           </div>

@@ -143,12 +143,107 @@ z-index: 2;
     background-color: #ffd6e0;
   }
 
-  .components-container{
-    display: flex;
+  .home-components-container{
+    display: grid;
     /* flex-direction: row; is default, so you can omit it */
+    grid-template-columns: 1fr 2fr;
     justify-content: center; /* Center buttons horizontally */
     gap: 20px; /* Space between buttons */
     margin-top: 20px;
+  }
+
+  .home-left-side {
+    display: grid;
+    grid-template-rows: 1fr 4fr; /* Top is 1/3, bottom is 2/3 */
+    border-right: 2px solid rgba(255, 255, 255, 0.2); /* Subtle divider line */
+    position: relative;
+    padding: 20px;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+    z-index: 2; /* Ensure it's above the overlay */
+    overflow-y: auto;
+    border-right: 2px solid rgba(255, 255, 255, 0.2); /* Subtle divider line */
+    border-radius: 8px;
+    margin-left: 20px;
+  }
+
+  .home-left-top {
+    position: relative;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Full height of the parent grid */
+    background-color: transparent; /* Transparent background */
+    z-index: 2; /* Above the overlay */
+  }
+  
+  /* Styled clickable message for the firearm count */
+  .inventory-link {
+    font-size: 18px; /* Adjust font size as needed */
+    font-weight: bold;
+    color: #fff; /* White text for contrast */
+    text-align: center; /* Center align the message */
+    padding: 10px;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: #4CAF50; /* Green background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.2s ease; /* Smooth transition effect */
+  }
+  
+  .inventory-link:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+  }
+  
+  /* Bottom area of the left side with transparency */
+  .home-left-bottom {
+    position: relative;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    border-radius: 8px;
+    z-index: 2; /* Above the overlay */
+    overflow-y: auto; /* Scroll vertically if content overflows */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+  
+  .horizontal-scroll-container {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 15px; /* Space between items */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    align-items: flex-start; /* Ensure alignment starts from the left/top */
+    padding-bottom: 10px; /* Extra padding for scroll visibility */
+    height: 100%; /* Full height of the parent section */
+  }
+  
+  /* Fixed-width wrapper around FirearmCard */
+  .firearm-wrapper {
+    flex: 0 0 350px; /* Adjust width as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .firearm-wrapper:hover {
+    transform: scale(1.05); /* Slight scaling on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deepened shadow */
+  }
+
+  
+  
+  /* Right side grid item */
+  .home-right-side {
+    position: relative;
+    padding: 20px;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly lighter semi-transparent black */
+    z-index: 2; /* Ensure it's above the overlay */
+    overflow-y: auto;
+    border-radius: 8px;
+    margin-right: 10px;
   }
 
   .action-button {
@@ -784,4 +879,9 @@ z-index: 2;
   font-weight: bold;
   color: #fff;
   margin-bottom: 8px; /* Space between date and duration */
+}
+
+/* Apply centering for single items */
+.horizontal-scroll-container:only-child {
+  justify-content: center; /* Center a single item horizontally */
 }

@@ -6,7 +6,6 @@ import UserInfoContext from '../UserInfoContext';
 import { useLoaderData } from 'react-router-dom';
 import MapImage from '../common/MapImage';
 import RangeVisitItem from '../common/RangeVisitItem';
-import { Link } from 'react-router-dom';
 import addNotification from 'react-push-notification';
 
 async function loader({ request }) {
