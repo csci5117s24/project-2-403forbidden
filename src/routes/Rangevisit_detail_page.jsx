@@ -6,6 +6,7 @@ import MapImage from '../common/MapImage';
 import moment from 'moment';
 import AddItemForm from "../common/AddRangeVisitItem";
 import { v4 as uuidv4 } from 'uuid'; 
+import { Link } from 'react-router-dom';
 async function loader({ request, params }) {
   const { id } = params;
   const rangevisitRequest = fetch("/api/rangevisit/"+id, {
@@ -93,6 +94,7 @@ function App() {
       })
     }
 
+
     return (
       <div className="vertical-grid">
         {/* Semi-transparent background image overlay */}
@@ -117,19 +119,22 @@ function App() {
           <div className="detail-list">
           {visitDetail.map((detail, index) => {
             const firearm = firearmsdata.find(f => f._id === detail.firearm);
-
+            const handleButtonClick = (e) => {
+              e.stopPropagation(); // Prevent the event from bubbling up to the Link
+              handleDelete(detail.id); // Proceed with the deletion
+            };
             return (
-              <div key={detail.id} className="detail-item">
-                <button
-                  className="range-visit-detail-delete-button"
-                  onClick={() => handleDelete(detail.id)}
-                  aria-label="Remove item"
-                >
-                  ✕
-                </button>
-                <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
-                <span className="value">{detail.value}</span>
-              </div>
+                <div key={detail.id} className="detail-item">
+                  <button
+                    className="range-visit-detail-delete-button"
+                    onClick={handleButtonClick}
+                    aria-label="Remove item"
+                  >
+                    ✕
+                  </button>
+                  <span className="firearm">{firearm ? firearm.firearmName : 'Unknown Firearm'}</span>
+                  <span className="value">{detail.value}</span>
+                </div>       
             );
           })}
         </div>

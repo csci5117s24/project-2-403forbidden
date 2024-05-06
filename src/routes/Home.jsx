@@ -6,6 +6,7 @@ import FirearmCard from "./FirearmCard.jsx";
 import MapImageSummary from '../common/MapImageSummary';
 import LastMonthChart from '../common/LastMonthChart';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 function App() {
   const navigate = useNavigate();
   const [firearms, setFirearms] = useState([]);
@@ -14,6 +15,7 @@ function App() {
 
   const [rangevisits, setRangevisits] = useState([]);
   const [coordinates, setCoordinates] = useState([]);
+  const [nextVisit, setNextVisit] = useState([]);
 
   // Fetch firearms data
   const fetchFirearms = async () => {
@@ -25,6 +27,7 @@ function App() {
   // Fetch data on initial component mount
   useEffect(() => {
     fetchFirearms();
+    console.log(firearms);
   }, []);
 
   const fetchRangeVisits = async () => {
@@ -51,6 +54,28 @@ function App() {
       lng: visit.rangeLng
     }));
     setCoordinates(cordList);
+    const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset the time to midnight for comparison
+
+  // Filter and sort range visits
+  const upcomingVisits = rangevisits
+    .filter(visit => {
+      // Parse visit date and check if it's after today's date
+      const visitDate = new Date(visit.visitDate);
+      return visitDate >= today; // Only future dates
+    })
+    .sort((a, b) => {
+      // Sort by date (closest to today first)
+      const dateA = new Date(a.visitDate);
+      const dateB = new Date(b.visitDate);
+      return dateA - dateB; // Ascending order (closest first)
+    });
+
+  // The first item is the visit closest to today
+    const closestVisit = upcomingVisits[0];
+    console.log("Next visit");
+    console.log(closestVisit);
+    setNextVisit(closestVisit);
 
   }, [rangevisits]);
 
@@ -133,7 +158,50 @@ function App() {
 
         {/* Bottom Section */}
         <div className="home-right-bottom">
-          <h3>Recent Activity</h3>
+          {/* Conditional rendering based on whether nextVisit is null */}
+          <div className="home-right-bottom">
+            {nextVisit ? (
+              <Link to={`/rangevisit/${nextVisit._id}`} className="home-next-visit-link">
+                <div>
+                {/* Display the upcoming range visit date */}
+                <p>Upcoming Range Visit: {moment(nextVisit.visitDate).format('YYYY-MM-DD')}</p>
+                
+                {/* Check if there are visit details and display them */}
+                {nextVisit.visitDetail && nextVisit.visitDetail.length > 0 && (
+                  <div className="home-detail-list">
+                  {firearms && nextVisit.visitDetail.map((detail, index) => {
+                    const firearm = firearms.find(f => f._id === detail.firearm);
+                    
+                    // Check if the firearm object is defined before rendering the link
+                    if (firearm) {
+                      return (
+                        <Link to={`/firearm/${firearm._id}`} className="home-next-visit-link" key={detail.id}>
+                          <div className="detail-item">
+                            <span className="firearm">{firearm.firearmName}</span>
+                            <span className="value">{detail.value} rounds</span>
+                          </div>
+                        </Link>
+                      );
+                    } else {
+                      // Handle missing firearm cases (optional: Customize this message as needed)
+                      return (
+                        <div key={detail.id} className="detail-item">
+                          <span className="firearm">Unknown Firearm</span>
+                          <span className="value">{detail.value} rounds</span>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+                )}
+              </div>
+              </Link>
+              
+            ) : (
+              // Display message if there is no upcoming visit
+              <p>Plan your next visit now!</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

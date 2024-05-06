@@ -255,10 +255,18 @@ z-index: 2;
   flex: 1; /* Make each section take half the height of the parent */
   margin: 10px 0;
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.8); /* Adjust background color */
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust background color */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   overflow: auto; /* Allow scrolling if the content exceeds the section's height */
+  flex-direction: column; /* Stack components vertically */
+  justify-content: space-between; /* Ensure both sections take up the full height */
+}
+
+.home-right-bottom p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
 }
 
 .home-right-top {
@@ -615,6 +623,17 @@ z-index: 2;
 .detail-list {
   width: 75%;
   margin-top: 20px;
+}
+
+.home-detail-list {
+  width: 100%;
+  position: relative; /* Ensure inner content is above the overlay */
+  z-index: 2; /* Keeps the elements above the overlay */
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  color: #fff; /* Ensure text contrast */
+  z-index: 2;
 }
 
 .detail-item {
@@ -981,4 +1000,20 @@ z-index: 2;
 /* Apply centering for single items */
 .horizontal-scroll-container:only-child {
   justify-content: center; /* Center a single item horizontally */
+}
+
+.home-next-visit-link {
+  display: block; /* Ensure it takes the whole width of the container */
+  padding: 10px; /* Adjust padding as needed */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-decoration: none; /* Remove underline from the link */
+  color: inherit; /* Keep text color consistent */
+  cursor: pointer; /* Set cursor to pointer */
+  transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for the next visit link */
+.home-next-visit-link:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Deeper shadow on hover */
 }
