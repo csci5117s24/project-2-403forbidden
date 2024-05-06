@@ -38,6 +38,7 @@ async function loader({ request }) {
   const closestVisit = upcomingVisits[0];
 
   if (closestVisit){
+    console.log("/rangevisit/" + closestVisit._id);
     addNotification({
       title: 'Your next scheduled range visit is coming!',
       message: 'click to see more details',

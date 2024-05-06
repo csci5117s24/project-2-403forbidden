@@ -17,8 +17,6 @@ function App() {
       // If not logged in, redirect to home page
       if (!user) {
         redirectToHome();
-      } else {
-        redirectToHomeAfterLogin();
       }
     })();
   }, []);

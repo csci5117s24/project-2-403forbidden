@@ -46,14 +46,14 @@
       }
     }
   },
-    "navigationFallback": {
-      "rewrite": "/index.html",
-      "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"]
-    }, 
-    "responseOverrides":{
-        "401": {
-            "statusCode": 302,
-            "redirect": "/"
-        }
-    }
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"]
+  }, 
+  "responseOverrides":{
+      "401": {
+          "statusCode": 302,
+          "redirect": "/"
+      }
   }
+}
