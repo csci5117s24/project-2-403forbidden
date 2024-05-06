@@ -74,19 +74,19 @@ const FirearmCard = ({ firearm, onUpdate, onDelete, displayOnly = false}) => {
             {!displayOnly && (
                 editMode ? (
                     <div className="card-footer">
-                        <button className="card-footer-item button is-success" onClick={saveChanges}>
+                        <button className="card-footer-item button save-button" onClick={saveChanges}>
                             Save
                         </button>
-                        <button className="card-footer-item button is-warning" onClick={cancelChanges}>
+                        <button className="card-footer-item button cancel-button" onClick={cancelChanges}>
                             Cancel
                         </button>
                     </div>
                 ) : (
                     <div className="card-footer">
-                        <button className="card-footer-item button is-info" onClick={() => setEditMode(true)}>
+                        <button className="card-footer-item button edit-button" onClick={() => setEditMode(true)}>
                             Edit
                         </button>
-                        <button className="card-footer-item button is-danger" onClick={() => onDelete(firearm)}>
+                        <button className="card-footer-item button delete-button" onClick={() => onDelete(firearm)}>
                             Delete
                         </button>
                     </div>

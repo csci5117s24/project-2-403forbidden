@@ -64,11 +64,30 @@
     font-weight: bold;
 }
 
-.edit-button { background-color: #4CAF50; }
-.save-button { background-color: #2196F3; }
-.cancel-button { background-color: #f0ad4e; }
-.delete-button { background-color: #f44336; }
-
+.card .edit-button {
+    background-color: #80c982;
+    width: 20%;
+    height: 20%;
+    /* other styles */
+}
+.card .save-button {
+    background-color: #2196F3;
+    width: 80%;
+    height: 80%;
+    /* other styles */
+}
+.card .cancel-button {
+    background-color: #f0ad4e;
+    width: 80%;
+    height: 80%;
+    /* other styles */
+}
+.card .delete-button {
+    background-color: #ad3931;
+    width: 80%;
+    height: 80%;
+    /* other styles */
+}
 .edit-button:hover, .save-button:hover, .delete-button:hover, .cancel-button:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 } 
