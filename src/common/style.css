@@ -1047,3 +1047,13 @@ z-index: 10;
 .fixed-add-button-visit {
   position: fixed;
 }
+
+.visit-item > button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px; /* Space between the button and the form */
+}

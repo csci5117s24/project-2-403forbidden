@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import DatePicker from 'react-datepicker'
 import '../common/style.css';
 import 'react-datepicker/dist/react-datepicker.css'
 import { useLoaderData } from 'react-router-dom';
@@ -39,12 +40,11 @@ function App() {
     const {rangevisitdata, firearmsdata} = useLoaderData();
     console.log(firearmsdata);
     const [rangevisit, setRangevisit] = useState(rangevisitdata.rangevisit)
-    const [visitDate, setVisitDate] = useState(rangevisit.visitDate);
+    const [visitDate, setVisitDate] = useState(new Date(rangevisit.visitDate) || new Date());
     const [visitDuration, setVisitDuration] = useState(rangevisit.duration);
     const [visitLat, setVisitLat] = useState(rangevisit.rangeLat);
     const [visitLng, setVisitLng] = useState(rangevisit.rangeLng);
     const [visitDetail, setVisitDetail] = useState(rangevisit.visitDetail)
-
     async function handleSubmit(firearm, value){
         const newDetail = {
             firearm: firearm,
@@ -94,6 +94,113 @@ function App() {
       })
     }
 
+    const [isEditing, setIsEditing] = useState(false);
+
+    const toggleEditMode = () => {
+      setIsEditing(!isEditing);
+    };
+
+    const cancelEdit = () => {
+      console.log("Cancel update");
+      setVisitDate(new Date(rangevisit.visitDate))
+      setVisitDuration(rangevisit.duration);
+      setVisitLat(rangevisit.rangeLat);
+      setVisitLng(rangevisit.rangeLng);
+      setIsEditing(!isEditing);
+    };
+
+    async function confirmEdit(){
+      console.log("Confirm update");
+      const formattedDate = visitDate.toISOString();
+      const updateRangeVisit = {
+        date: formattedDate, 
+        lat: visitLat, 
+        lng: visitLng, 
+        duration:visitDuration,
+      };
+
+      const result = await fetch("/api/rangevisit/update/"+rangevisit._id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateRangeVisit)
+      })
+
+      if (result.ok) {
+        const rangevisitRequest = await fetch("/api/rangevisit/"+rangevisit._id, {
+          method: "GET",
+        });
+        const newRangeVisit = await rangevisitRequest.json();
+        console.log(newRangeVisit);
+        setRangevisit(newRangeVisit.rangevisit);
+      }
+      setIsEditing(!isEditing);
+    };
+
+    const handleDateChange = (date) => {
+      setVisitDate(date);
+    }
+
+    const handleDurationChange = (event) => {
+      setVisitDuration(event.target.value);  // Update duration based on user input
+    };
+
+    async function updateLocation(){
+      console.log("Update geolocation begin");
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+      function success(pos) {
+        const crd = pos.coords;
+        console.log(visitLat);
+        console.log(visitLng);
+        setVisitLat(crd.latitude);
+        setVisitLng(crd.longitude);
+        console.log("Your new position is:");
+        console.log(visitLat);
+        console.log(visitLng);
+      }
+      
+      function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
+      navigator.geolocation.getCurrentPosition(success, error, options);
+      const updateRangeVisit = {
+        lat: visitLat, 
+        lng: visitLng, 
+      };
+
+      const result = await fetch("/api/rangevisit/update/"+rangevisit._id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateRangeVisit)
+      })
+
+      if (result.ok) {
+        const rangevisitRequest = await fetch("/api/rangevisit/"+rangevisit._id, {
+          method: "GET",
+        });
+        const newRangeVisit = await rangevisitRequest.json();
+        console.log(newRangeVisit);
+        setRangevisit(newRangeVisit.rangevisit);
+      }
+    }
+    const confirmAndUpdateLocation = () => {
+      // Show the confirmation dialog
+      const userConfirmed = window.confirm(
+        "Are you sure you want to update your geolocation for this range visit?"
+      );
+  
+      // Proceed only if the user confirms
+      if (userConfirmed) {
+        updateLocation();
+      }
+    };
 
     return (
       <div className="vertical-grid">
@@ -102,6 +209,27 @@ function App() {
 
         {/* Visit item */}
         <div className="visit-item">
+        {isEditing ? (
+        <div className="inputs-container">
+          <DatePicker
+            selected={visitDate}
+            onChange={handleDateChange}
+            placeholderText="Your date of visit"
+            className="custom-datepicker"
+          />
+          <div className="duration-container">
+            <input
+              type="number"
+              value={visitDuration}
+              onChange={handleDurationChange}
+              placeholder="Duration in minutes"
+              className="duration-input"
+            />
+            <span className="duration-label">min</span>
+          </div>
+        </div>
+      ) : (
+        <div>
           <div className="info-container">
             <p className="date">{moment(visitDate).format('YYYY-MM-DD')}</p>
             <p className="duration">{visitDuration} min</p>
@@ -109,7 +237,21 @@ function App() {
           <div className="map-container">
             <MapImage lat={visitLat} lng={visitLng} />
           </div>
-          <AddItemForm handleSubmit={handleSubmit} firearmlist={firearmsdata}></AddItemForm>
+        </div>
+      )}
+          {isEditing  && <button className="button is-primary" onClick={cancelEdit}>
+            Cancel
+          </button>}
+          {isEditing  && <button className="button is-primary" onClick={confirmEdit}>
+            Update
+          </button>}
+          {!isEditing  && <button className="button is-primary" onClick={toggleEditMode}>
+            Edit Visit
+          </button>}
+          {!isEditing  && <button className="button is-primary" onClick={confirmAndUpdateLocation}>
+            Update Location
+          </button>}
+          {!isEditing  && <AddItemForm handleSubmit={handleSubmit} firearmlist={firearmsdata}></AddItemForm>}
         </div>
 
         
