@@ -61,6 +61,19 @@ const LastMonthChart = ({ rangevisits }) => {
     }
   };
 
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="custom-tooltip" style={{ backgroundColor: "#fff", padding: "5px", border: "1px solid #ccc" }}>
+          <p><strong>Date:</strong> {moment(data.date).format('MMM DD, YYYY')}</p>
+          <p><strong>Total Rounds:</strong> {data.totalValue}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <ScatterChart
       width={500}
@@ -81,7 +94,7 @@ const LastMonthChart = ({ rangevisits }) => {
             style={{ textAnchor: 'middle' }} // Ensures text is centered along the axis
         />
         </YAxis>
-      <Tooltip />
+      <Tooltip content={<CustomTooltip />} /> {/* Use the custom tooltip */}
       <Scatter
         name="Total Rounds per Day"
         dataKey="totalValue"
