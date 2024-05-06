@@ -21,7 +21,7 @@ export default function AddItemForm({ handleSubmit, firearmlist}) {
     };
 
     return (
-        <div className="add-item">
+        <div className="add-item ">
         {/* Toggle button */}
         <button onClick={toggleFormVisibility}>
             {isFormVisible ? '-' : 'Add Detail'}

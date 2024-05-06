@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bulma/css/bulma.min.css'; 
 import './FirearmDetails.css'; // Ensure you import your custom styles here
-
-
+import moment from 'moment';
 const FirearmDetails = () => {
     const { firearmId } = useParams();
     const [firearm, setFirearm] = useState(null);
@@ -22,7 +21,9 @@ const FirearmDetails = () => {
     }, [firearmId]);
 
     return (
-        <div>
+        <div className='firearm-detail'>
+            <div className="detail-background-overlay"></div>
+            <div className="fixed-height-columns">
             <h1 className="title">Firearm Details</h1>
             <div className="box">
                 {firearm ? (
@@ -51,7 +52,13 @@ const FirearmDetails = () => {
             <div className="box">
                 {firearm && firearm.firearmMaintenanceHistory && firearm.firearmMaintenanceHistory.length ? (
                     <ul>
-                        {firearm.firearmMaintenanceHistory.map((item, index) => (
+                        {firearm.firearmMaintenanceHistory.sort((a, b) => {
+                        // Convert visit dates to Date objects for accurate comparison
+                        const dateA = new Date(a.date);
+                        const dateB = new Date(b.date);
+                        return dateA - dateB; // Ascending order (oldest to newest)
+                        // return dateB - dateA; // For descending order (newest to oldest)
+                        }).map((item, index) => (
                             <li key={index}>
                                 Date: {item.date}, Description: {item.description}
                             </li>
@@ -64,13 +71,20 @@ const FirearmDetails = () => {
             <div className="box">
                 {rangeVisits.length ? (
                     <ul>
-                        {rangeVisits.map(visit => (
+                        {rangeVisits.sort((a, b) => {
+                        // Convert visit dates to Date objects for accurate comparison
+                        const dateA = new Date(a.visitDate);
+                        const dateB = new Date(b.visitDate);
+                        return dateA - dateB; // Ascending order (oldest to newest)
+                        // return dateB - dateA; // For descending order (newest to oldest)
+                        }).map(visit => (
                             <li key={visit._id}>
-                                Date: {visit.visitDate}, Duration: {visit.duration} minutes
+                                Date: {moment(visit.visitDate).format('YYYY-MM-DD')}, Duration: {visit.duration} minutes
                             </li>
                         ))}
                     </ul>
                 ) : <p>No range visits recorded.</p>}
+            </div>
             </div>
         </div>
     );

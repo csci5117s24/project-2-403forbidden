@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import 'bulma/css/bulma.min.css';
 import { useNavigate } from 'react-router-dom'; 
 import FirearmMaintenanceCard from "./FirearmMaintenanceCard.jsx";
+import '../common/style.css';
 
 function FirearmMaintenanceInventory() {
     const [firearms, setFirearms] = useState([]);
@@ -23,7 +24,8 @@ function FirearmMaintenanceInventory() {
     };
 
     return (
-        <div className="container">
+        <div className="maintain-container">
+            <div className="maintain-background-overlay"></div>
             <div className="columns is-multiline">
                 {firearms.map(firearm => (
                     <div className="column is-one-third" key={firearm._id}>
@@ -31,7 +33,7 @@ function FirearmMaintenanceInventory() {
                     </div>
                 ))}
             </div>
-            <button className="button is-primary" onClick={navigateToMaintenance}>Add Maintenance</button> {/* Correct function called here */}
+            <button className="button is-primary fixed-add-button" onClick={navigateToMaintenance}>Add Maintenance</button> {/* Correct function called here */}
         </div>
     );
 }

@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   min-height: 100vh;
+  overflow: hidden; /* Prevents the scroll bar from appearing */
 }
 
 .home-head {

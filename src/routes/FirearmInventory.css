@@ -4,3 +4,30 @@
     right: 30px;
     z-index: 1000; 
 }
+
+.firearm-inventory {
+    overflow: hidden; /* Prevents the scroll bar from appearing */
+    background-color: rgba(0, 0, 0, 0.7); /* Light background color */
+  }
+
+.inventory-background-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Full height of the main container */
+    background-image: url('../../public/firearm.png'); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2; /* Adjust for desired transparency */
+    z-index: 0; /* Places the overlay behind the content */
+  }
+
+  .fixed-height-columns {
+    margin-top: 20px;
+    height:90vh; /* 80% of the viewport height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 10px; /* Optional padding */
+    box-sizing: border-box; /* Padding included in the total height */
+    border-radius: 8px; /* Rounded corners */
+  }

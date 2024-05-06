@@ -65,7 +65,8 @@ const handleUpdate = async (updatedFirearm) => {
 
     return (
         <div className="firearm-inventory">
-            <div className="columns is-multiline">
+            <div className="inventory-background-overlay"></div>
+            <div className="columns is-multiline fixed-height-columns">
             {firearms.map((firearm) => (
                 <div className="column is-one-third" key={firearm._id}>
                 <FirearmCard key={firearm._id} firearm={firearm} onDelete={() => handleDelete(firearm._id)} onUpdate={(edited)=>handleUpdate(edited)}/>
