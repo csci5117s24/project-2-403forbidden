@@ -1,4 +1,30 @@
 {
+  "routes": [
+    {
+        "route": "/home",
+        "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/firearm_inventory",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/firearm/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/rangevisit/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/firearm_maintenance",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/detailMaintenance/*",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
   "auth": {
     "identityProviders": {
       "customOpenIdConnectProviders": {
