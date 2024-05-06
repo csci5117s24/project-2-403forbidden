@@ -27,13 +27,21 @@ z-index: 2;
     gap: 20px; /* Optional: Adds space between the two sections */
   }
 
-  .bottom-link{
+  .bottom-link {
     color: #4CAF50; /* Green text */
     text-decoration: none; /* No underline */
     font-weight: bold; /* Bold text */
     background-color: #C8E6C9; /* Light green background */
     padding: 10px; /* Padding around the text */
     border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  }
+  
+  /* Hover effect for the bottom link */
+  .bottom-link:hover {
+    background-color: #81C784; /* Darker green background on hover */
+    color: #fff; /* White text color on hover */
+    text-decoration: underline; /* Optional: underline the text on hover */
   }
 
   .color1 {
