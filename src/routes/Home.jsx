@@ -3,11 +3,17 @@ import React from 'react';
 import {useState, useEffect, useRef} from "react";
 import { Link } from 'react-router-dom';
 import FirearmCard from "./FirearmCard.jsx";
+import MapImageSummary from '../common/MapImageSummary';
+import LastMonthChart from '../common/LastMonthChart';
+import { useNavigate } from 'react-router-dom';
 function App() {
+  const navigate = useNavigate();
   const [firearms, setFirearms] = useState([]);
   const scrollContainerRef = useRef(null);
   const [isMouseOver, setIsMouseOver] = useState(false);
 
+  const [rangevisits, setRangevisits] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
 
   // Fetch firearms data
   const fetchFirearms = async () => {
@@ -21,11 +27,32 @@ function App() {
     fetchFirearms();
   }, []);
 
+  const fetchRangeVisits = async () => {
+    const response = await fetch('/api/rangevisits/all');
+    const data = await response.json();
+    setRangevisits(data.data);
+  };
+
+  // Fetch data on initial component mount
+  useEffect(() => {
+    fetchRangeVisits();
+  }, []);
+
   useEffect(() => {
     if (scrollContainerRef.current && firearms.length > 0) {
       scrollContainerRef.current.scrollLeft = -200 * firearms.length; // Ensure it starts from the leftmost position
     }
   }, [firearms]);
+
+  useEffect(() => {
+    console.log(rangevisits);
+    const cordList = rangevisits.map(visit => ({
+      lat: visit.rangeLat,
+      lng: visit.rangeLng
+    }));
+    setCoordinates(cordList);
+
+  }, [rangevisits]);
 
   // Auto-scroll interval logic with looping effect
   useEffect(() => {
@@ -55,6 +82,9 @@ function App() {
   const handleMouseEnter = () => setIsMouseOver(true);
   const handleMouseLeave = () => setIsMouseOver(false);
 
+  const handleContainerClick = () => {
+    navigate('/rangevisit/add'); // Navigate to the "rangevisit/add" route
+  };
 
   return (
     <div className="home-components-container">
@@ -88,7 +118,23 @@ function App() {
       </div>
 
       <div className="home-right-side">
-        <h2>Right Side Content</h2>
+        {/* Top Section */}
+        <div className="home-right-top">
+        <div className="home-map-container" onClick={handleContainerClick}>
+          <MapImageSummary coordinates={coordinates} className="home-map-image" /> {/* Updated map class */}
+        </div>
+        <div className="home-chart-container">
+          <h2>Last Month's Visits</h2>
+          <div className="chart-responsive">
+            <LastMonthChart rangevisits={rangevisits} />
+          </div>
+        </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="home-right-bottom">
+          <h3>Recent Activity</h3>
+        </div>
       </div>
     </div>
   );

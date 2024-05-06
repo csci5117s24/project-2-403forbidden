@@ -235,16 +235,113 @@ z-index: 2;
   
   
   /* Right side grid item */
-  .home-right-side {
-    position: relative;
-    padding: 20px;
-    height: 80vh;
-    background-color: rgba(0, 0, 0, 0.4); /* Slightly lighter semi-transparent black */
-    z-index: 2; /* Ensure it's above the overlay */
-    overflow-y: auto;
-    border-radius: 8px;
-    margin-right: 10px;
-  }
+  /* Parent container for the right side */
+.home-right-side {
+  display: flex;
+  flex-direction: column; /* Stack components vertically */
+  justify-content: space-between; /* Ensure both sections take up the full height */
+  height: 80vh; /* Full height of the viewport */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.4); /* Adjust the background color as needed */
+  border-radius: 8px;
+  overflow-y: auto;
+  margin-right: 10px;
+  z-index: 2;
+}
+
+/* Top and Bottom Sections */
+.home-right-bottom {
+  flex: 1; /* Make each section take half the height of the parent */
+  margin: 10px 0;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust background color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow: auto; /* Allow scrolling if the content exceeds the section's height */
+}
+
+.home-right-top {
+  flex: 1; /* Make each section take half the height of the parent */
+  display: flex;
+  flex-direction: row; /* Arrange horizontally */
+  gap: 15px; /* Space between components */
+  height: 100%; /* Full height of the section */
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden;
+}
+
+/* Map Container Styles */
+.home-map-container {
+  display: flex;
+  flex-direction: column; /* Arrange heading and map vertically */
+  justify-content: center; /* Center map vertically */
+  align-items: center; /* Center map horizontally */
+  padding: 20px;
+  flex:1;
+  margin: 0 auto; /* Center the container itself */
+  max-width: 800px; /* Limit container width */
+  width: 100%; /* Adjust to full width of the screen */
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Ensure content doesn't spill out */
+  cursor: pointer; /* Make it clear the container is clickable */
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition effects */
+}
+
+.home-map-container:hover {
+  transform: scale(1.03); /* Slight zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Deepen shadow on hover */
+}
+
+/* Map Title Style */
+.home-map-container h2 {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #333; /* Darker color for the title */
+  text-align: center;
+}
+
+/* Dynamic Map Sizing */
+.home-map-image {
+  width: 80%; /* Full width of the container */
+  max-width: 100%; /* Restrict to the container's width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+/* Statistics Container Styles */
+.home-summary-container {
+  flex: 1; /* Adjust the size as needed */
+  padding: 15px;
+  background-color: rgba(240, 240, 240, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home-chart-container {
+  flex: 2; /* Adjusts to the available space, making sure it fits well */
+  max-width: 66.6%; /* Ensure that it doesn't exceed one-third of the width */
+  margin: 0 auto; /* Center it horizontally */
+  box-sizing: border-box;
+  background-color: rgba(240, 240, 240, 0.9); /* Light background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden; /* Prevent the chart from spilling outside */
+  text-align: center; /* Center the title */
+}
+
+/* Responsive Chart */
+.chart-responsive {
+  width: 100%; /* Full width of the parent */
+}
 
   .action-button {
     margin-top: 20px;
