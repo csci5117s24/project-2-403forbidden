@@ -177,11 +177,69 @@ The "Add Maintenance" page is accessible by tapping the "+" button located in th
 
 ## Screenshots of Site (complete)
 
-**[Add a screenshot of each key page](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository)
-along with a very brief caption:**
+### 0. Welcome Page
+Web view
+![](doc/screenShots/welcome_page_pc.png)
 
-![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
+The landing page for All user's before they sign in 
 
+### 1. Sign In Page
+Web view
+![](doc/screenShots/sign_in_page_pc.png)
+Page where user sign in if they have existing account. if they forget about their id/password or they are new user. they have find appropriate link
+### 2. Sign Up Page
+Web view
+![](doc/screenShots/sign_up_page_pc.png)
+If user does not have an account, they can set up their account bu filling out all information needed
+### 3. Home_Page
+Web view
+![](doc/screenShots/home_page_pc.png)
+This is the home page of this website. this page provides an overview of the major stats such as all the gun user have, range's they visited and maintance they conducted in the pasgt month. 
+### 4. Firearm Inventory Page
+Web view
+![](doc/screenShots/firearm_inventory_pc.png)
+this page show an all the guns user logged. one can add, check delete and edit information about guns. 
+### 5. Add Firearm Page
+Web view
+![](doc/screenShots/add_firearm_pc.png)
+this is pop up window for adding an new firearm. image is required but all other imformation is optional. image will be uploaded to cloudflare. once click on sunmit button, information will be submitted an saved. 
+### 6. Edit Firearm Page
+Web view
+![](doc/screenShots/edit_firearm_page_pc.png)
+tghis page allows user to change all information about a gun(except image). if save, information will be updated, if cancle, all changes will be undo.
+### 7. Firearm Detail Page
+Web view
+![](doc/screenShots/firearm_detail_1_pc.png)
+![](doc/screenShots/firearm_detail_2_pc.png)
+this page show all activities related to one gun, including stats about this gun, maintance history and range visits. 
+### 8. Range_Visit Page
+Web view
+![](doc/screenShots/range_visit_page_pc.png)
+this page show all the range visits history and an simple interfac to add addtional range visit history. 
+### 9. Edit Range Visit Page
+Web view
+![](doc/screenShots/edit_range_visit_pc.png)
+this page provides an interface for user to edit the range vist, including change the duration and change the gun this visit related to.
+### 10. Notification Page anf Redirect
+Web view
+![](doc/screenShots/redirected_by_notification_page.png)
+notification will be sent to user if an scheduled event happenes now. if user click on notification, they will be redirected to the page detailing the event. 
+### 11. Maintance Page
+Web view
+![](doc/screenShots/maintance_page_pc.png)
+this page show maintance history of all guns.
+### 12. Add Maintance Page
+Web view
+![](doc/screenShots/add_maintance_page.png)
+this page provides an simple user interface for adding an maintance activity. 
+### 13. Edit Maintance Page
+Web view
+![](doc/screenShots/edit_maintance_detail_page.png)
+this page provides user interface for editing the previously saved maintance record.
+### 14. Maintance Detail Page
+Web view
+![](doc/screenShots/maintance_detail_page_pc.png)
+this  page show the maintance racond of one specific firearm
 ## External Dependencies
 
 **Document integrations with 3rd Party code or services here.
