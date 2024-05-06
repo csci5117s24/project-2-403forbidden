@@ -72,7 +72,7 @@ function AddMaintenance() {
                 <div className="field">
                     <label className="label">Date</label>
                     <div className="control">
-                        <input className="input" type="date" value={date} onChange={e => setDate(e.target.value)} required />
+                        <input className="input is-fullwidth" type="date" value={date} onChange={e => setDate(e.target.value)} required />
                     </div>
                 </div>
                 <div className="field">

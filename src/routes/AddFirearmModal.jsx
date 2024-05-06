@@ -159,7 +159,7 @@ function AddFirearmModal({ isOpen, onClose }) {
                     <div className="field">
                         <label className="label">Purchase Date</label>
                         <div className="control">
-                            <input className="input" type="date" name="firearmPurchasedate" value={firearmData.firearmPurchasedate} onChange={handleInputChange} />
+                            <input className="input is-fullwidth" type="date" name="firearmPurchasedate" value={firearmData.firearmPurchasedate} onChange={handleInputChange} />
                         </div>
                     </div>
 
