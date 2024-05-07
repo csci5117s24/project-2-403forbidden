@@ -595,4 +595,16 @@ app.http('getFirearmById', {
         };
     }
 });
+
+app.http('getGoogleMapAPIKey', {
+    methods: ['GET'],
+    authLevel: 'anonymous',
+    route: 'googlemapkey',
+    handler: async (request, context) => {
+        const apikey = process.env.GOOGLE_API_KEY
+        return {
+            jsonBody: {key: apikey}
+        }  
+    },
+  });
   
