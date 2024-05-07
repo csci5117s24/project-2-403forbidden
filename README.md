@@ -21,11 +21,13 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-- ...
+- push notification for schduled events
+- google api and save the picture of the location to cloudflare to increase performance. 
 
 Which (if any) device integration(s) does your app support?
 
-- ...
+- laptop
+- tablets with larger screen
 
 Which (if any) progressive web app feature(s) does your app support?
 
