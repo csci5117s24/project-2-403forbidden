@@ -248,7 +248,9 @@ this  page show the maintance racond of one specific firearm
 Please do not document required libraries (e.g., React, Azure serverless functions, Azure nosql).**
 
 - Library or service name: description of use
-- ...
+- google map api
+- cloudflare for image storage
+- 
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
